@@ -13,6 +13,7 @@ interface MandalaState {
 const Top = () => {
   // FIXME: 一旦any型
   const [state, setState] = useState<any>([]);
+
   const [mandalaState, setMandalaState] = useState<MandalaState>({
     isOpen: false,
     item: '',

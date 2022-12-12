@@ -10,7 +10,7 @@ const items = {
   mission: '目標',
   subMission: 'サブ目標',
   todo: 'todo',
-  '': '???',
+  '': '作成する',
 };
 
 const colors = [
@@ -52,9 +52,15 @@ const Modal: React.FC<{
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-3xl font-semibold">
-                {mandalaState.content}({items[mandalaState.item]})を変更する
-              </h3>
+              {mandalaState.content === '' ? (
+                <h3 className="text-3xl font-semibold">
+                  {mandalaState.content}({items[mandalaState.item]})を変更する
+                </h3>
+              ) : (
+                <h3 className="text-3xl font-semibold">
+                  {items[mandalaState.item]}を作成する
+                </h3>
+              )}
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={() =>

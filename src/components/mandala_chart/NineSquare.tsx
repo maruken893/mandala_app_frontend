@@ -39,11 +39,16 @@ const NineSquare = ({
   sub_mission_pos: number;
   setMandalaState: React.Dispatch<React.SetStateAction<ModalState>>;
 }) => {
+  // component
   const handleGridClick = (
     data: ModalState,
     item: 'mission' | 'subMission' | 'todo'
   ) => {
-    setMandalaState((prev) => ({ content: data.content, item, isOpen: true }));
+    setMandalaState((prev) => ({
+      content: data.content,
+      item: item,
+      isOpen: true,
+    }));
   };
   return (
     <>
@@ -57,11 +62,10 @@ const NineSquare = ({
                 <div
                   key={todo_pos}
                   className={`p-1 leading-3 ${colors[todo_pos]} border border-gray-300 hover:opacity-80 hover:cursor-pointer`}
-                  onClick={
-                    () =>
-                      sub_mission_pos === 4 && todo_pos === 4
-                        ? handleGridClick(data, 'mission') // alert(`${sub_mission_pos} ${todo_pos} mission`)
-                        : handleGridClick(data, 'subMission') //alert(`${sub_mission_pos} ${todo_pos}sub_mission`)
+                  onClick={() =>
+                    sub_mission_pos === 4 && todo_pos === 4
+                      ? handleGridClick(data || '', 'mission')
+                      : handleGridClick(data || '', 'subMission')
                   }
                 >
                   <p className="leading-3 line-clamp-2 text-xxxs md:line-clamp-3 md:leading-3 lg:pt-2  lg:line-clamp-4 lg:text-xxs 2lg:leading-4">
@@ -76,7 +80,7 @@ const NineSquare = ({
                   <div
                     key={todo_pos}
                     className={`p-1 leading-3 ${colors[sub_mission_pos]} border border-gray-300 hover:opacity-80 hover:cursor-pointer`}
-                    onClick={() => handleGridClick(data, 'subMission')}
+                    onClick={() => handleGridClick(data || '', 'subMission')}
                   >
                     <p className="leading-3 line-clamp-2 text-xxxs md:line-clamp-3 md:leading-3 lg:pt-2  lg:line-clamp-4 lg:text-xxs 2lg:leading-4">
                       {data ? data.content : `${colors[sub_mission_pos]}`}
@@ -87,12 +91,10 @@ const NineSquare = ({
                   <div
                     key={todo_pos}
                     className={`p-1 leading-3 bg-gray-200  border border-gray-300 hover:bg-gray-300 hover:cursor-pointer`}
-                    onClick={() => handleGridClick(data, 'todo')}
+                    onClick={() => handleGridClick(data || '', 'todo')}
                   >
                     <p className="leading-3 line-clamp-2 text-xxxs md:line-clamp-3 md:leading-3 lg:pt-2  lg:line-clamp-4 lg:text-xxs 2lg:leading-4">
-                      {data
-                        ? data.content
-                        : 'あいうえおかきくけこさしすせそたちつてと'}
+                      {data ? data.content : ''}
                     </p>
                   </div>
                 )}
