@@ -8,10 +8,11 @@ interface MandalaState {
   isOpen: boolean;
   item: 'mission' | 'subMission' | 'todo' | '';
   content: string;
+  contentObj?: any;
 }
 
 const Top = () => {
-  // FIXME: 一旦any型
+  // FIXME: 一旦any型 mandala_dataの9x9の配列
   const [state, setState] = useState<any>([]);
 
   const [mandalaState, setMandalaState] = useState<MandalaState>({
@@ -23,6 +24,7 @@ const Top = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetchMandala();
+      console.log(res);
       setState([...res?.data.data]);
     };
     fetchData();

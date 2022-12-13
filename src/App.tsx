@@ -21,7 +21,7 @@ function App() {
     try {
       setIsLoading(true);
       const res = await getCurrentUser();
-      console.log(res);
+      // console.log(res);
       if (res?.data.isLogin === true) {
         dispatch({ type: 'signin' });
         dispatch({ type: 'setUser', payload: { user: res?.data.data } });
