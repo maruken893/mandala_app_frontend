@@ -4,44 +4,48 @@ import { fetchMandala } from '../../lib/api/mandala';
 import Modal from '../common/Modal';
 import NineSquare from './NineSquare';
 
-interface MandalaState {
+interface ModalState {
   isOpen: boolean;
   item: 'mission' | 'subMission' | 'todo' | '';
-  content: string;
-  contentObj?: any;
+  // FIXME: 一旦any
+  data: any;
+  parentData: any;
+  position?: number;
 }
 
 const Top = () => {
   // FIXME: 一旦any型 mandala_dataの9x9の配列
-  const [state, setState] = useState<any>([]);
+  const [mandalaState, setMandalaState] = useState<any>([]);
 
-  const [mandalaState, setMandalaState] = useState<MandalaState>({
+  const [modalState, setModalState] = useState<ModalState>({
     isOpen: false,
     item: '',
-    content: '',
+    data: {},
+    parentData: {},
   });
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetchMandala();
       console.log(res);
-      setState([...res?.data.data]);
+      setMandalaState([...res?.data.data]);
     };
     fetchData();
   }, []);
 
   return (
     <div className="">
-      {mandalaState.isOpen ? (
-        <Modal mandalaState={mandalaState} setMandalaState={setMandalaState} />
+      {modalState.isOpen ? (
+        <Modal modalState={modalState} setModalState={setModalState} />
       ) : null}
       <div className="grid grid-cols-3 grid-rows-3 mt-6 mx-auto border border-red-700 w-84 h-84 sm:w-120 sm:h-120 md:w-156 md:h-156 md:mt-10 lg:ml-8 2xl:w-192 2xl:h-192 2xl:ml-12">
-        {state.map((datas: any, i: number) => (
+        {mandalaState.map((datas: any, i: number) => (
           <NineSquare
             key={i}
             datas={datas}
             sub_mission_pos={i}
-            setMandalaState={setMandalaState}
+            mission={mandalaState[4][4]}
+            setModalState={setModalState}
           />
         ))}
       </div>

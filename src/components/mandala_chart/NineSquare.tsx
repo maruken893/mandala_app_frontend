@@ -14,7 +14,9 @@ interface Data {
 interface ModalState {
   isOpen: boolean;
   item: 'mission' | 'subMission' | 'todo' | '';
-  content: string;
+  // FIXME: 一旦any
+  data: any;
+  parentData: any;
 }
 
 const colors = [
@@ -30,23 +32,32 @@ const colors = [
   'bg-orange-400',
 ];
 
+// components
 const NineSquare = ({
   datas,
   sub_mission_pos,
-  setMandalaState,
+  setModalState,
+  mission,
 }: {
+  // FIXME: anyいっぱい使ってる
   datas: any;
   sub_mission_pos: number;
-  setMandalaState: React.Dispatch<React.SetStateAction<ModalState>>;
+  setModalState: React.Dispatch<React.SetStateAction<ModalState>>;
+  mission: any;
 }) => {
   const handleGridClick = (
-    data: ModalState,
-    item: 'mission' | 'subMission' | 'todo'
+    // FIXME: any型
+    item: 'mission' | 'subMission' | 'todo',
+    data: any,
+    parentData?: any,
+    position?: number
   ) => {
-    setMandalaState((prev) => ({
-      content: data?.content ?? '',
+    setModalState((prev) => ({
+      data,
+      parentData,
       item: item,
       isOpen: true,
+      position,
     }));
   };
   return (
@@ -62,9 +73,9 @@ const NineSquare = ({
                   key={todo_pos}
                   className={`p-1 leading-3 ${colors[todo_pos]} border border-gray-300 hover:opacity-80 hover:cursor-pointer`}
                   onClick={() =>
-                    sub_mission_pos === 4 && todo_pos === 4
-                      ? handleGridClick(data, 'mission')
-                      : handleGridClick(data, 'subMission')
+                    todo_pos === 4
+                      ? handleGridClick('mission', data)
+                      : handleGridClick('subMission', data, datas[4], todo_pos)
                   }
                 >
                   <p className="leading-3 line-clamp-2 text-xxxs md:line-clamp-3 md:leading-3 lg:pt-2  lg:line-clamp-4 lg:text-xxs 2lg:leading-4">
@@ -79,7 +90,14 @@ const NineSquare = ({
                   <div
                     key={todo_pos}
                     className={`p-1 leading-3 ${colors[sub_mission_pos]} border border-gray-300 hover:opacity-80 hover:cursor-pointer`}
-                    onClick={() => handleGridClick(data, 'subMission')}
+                    onClick={() =>
+                      handleGridClick(
+                        'subMission',
+                        data,
+                        mission,
+                        sub_mission_pos
+                      )
+                    }
                   >
                     <p className="leading-3 line-clamp-2 text-xxxs md:line-clamp-3 md:leading-3 lg:pt-2  lg:line-clamp-4 lg:text-xxs 2lg:leading-4">
                       {data ? data.content : ``}
@@ -90,7 +108,9 @@ const NineSquare = ({
                   <div
                     key={todo_pos}
                     className={`p-1 leading-3 bg-gray-200  border border-gray-300 hover:bg-gray-300 hover:cursor-pointer`}
-                    onClick={() => handleGridClick(data, 'todo')}
+                    onClick={() =>
+                      handleGridClick('todo', data, datas[4], todo_pos)
+                    }
                   >
                     <p className="leading-3 line-clamp-2 text-xxxs md:line-clamp-3 md:leading-3 lg:pt-2  lg:line-clamp-4 lg:text-xxs 2lg:leading-4">
                       {data ? data.content : ''}

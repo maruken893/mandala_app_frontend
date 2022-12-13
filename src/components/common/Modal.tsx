@@ -1,10 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { createMission } from '../../lib/api/mandala';
+import {
+  createMission,
+  createSubMission,
+  updateMission,
+} from '../../lib/api/mandala';
 
 interface ModalState {
   isOpen: boolean;
   item: 'mission' | 'subMission' | 'todo' | '';
-  content: string;
+  data: any;
+  parentData: any;
+  position?: number;
 }
 
 const items = {
@@ -28,21 +34,42 @@ const colors = [
 ];
 
 const Modal: React.FC<{
-  mandalaState: ModalState;
-  setMandalaState: React.Dispatch<React.SetStateAction<ModalState>>;
-}> = ({ mandalaState, setMandalaState }) => {
-  const [input, setInput] = useState(mandalaState.content);
+  modalState: ModalState;
+  setModalState: React.Dispatch<React.SetStateAction<ModalState>>;
+}> = ({ modalState, setModalState }) => {
+  const [input, setInput] = useState(modalState.data?.content ?? '');
   const inputRef = useRef<HTMLInputElement>(null!);
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
-  console.log(mandalaState);
+  console.log(modalState);
 
   const handleCreateMissionButton = async () => {
     try {
-      await createMission(input);
-      setMandalaState((prev) => ({ ...prev, isOpen: false }));
+      if (modalState.item === 'mission') {
+        await createMission(input);
+      } else if (modalState.item === 'subMission') {
+        if (typeof modalState.position === 'number') {
+          await createSubMission(
+            input,
+            modalState.position,
+            modalState.parentData
+          );
+        }
+      } else if (modalState.item === 'todo') {
+      }
+      setModalState((prev) => ({ ...prev, isOpen: false }));
+      setInput('');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUpdateMissionButton = async () => {
+    try {
+      await updateMission(input, modalState.data);
+      setModalState((prev) => ({ ...prev, isOpen: false }));
       setInput('');
     } catch (err) {
       console.log(err);
@@ -50,7 +77,7 @@ const Modal: React.FC<{
   };
 
   const handleCloseButton = () => {
-    setMandalaState((prev) => ({ ...prev, content: '', isOpen: false }));
+    setModalState((prev) => ({ ...prev, content: '', isOpen: false }));
   };
 
   useEffect(() => {
@@ -65,13 +92,14 @@ const Modal: React.FC<{
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              {mandalaState.content === '' ? (
+              {modalState.data ? (
                 <h3 className="text-3xl font-semibold">
-                  {items[mandalaState.item]}を作成する
+                  {modalState.data.content}({items[modalState.item]}
+                  )を変更する
                 </h3>
               ) : (
                 <h3 className="text-3xl font-semibold">
-                  {mandalaState.content}({items[mandalaState.item]})を変更する
+                  {items[modalState.item]}を作成する
                 </h3>
               )}
               {/* <button
@@ -97,21 +125,21 @@ const Modal: React.FC<{
             </div>
             {/*footer*/}
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-              {mandalaState.content === '' ? (
+              {modalState.data ? (
+                <button
+                  className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={handleUpdateMissionButton}
+                >
+                  Save Changes
+                </button>
+              ) : (
                 <button
                   className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
                   onClick={handleCreateMissionButton}
                 >
                   Create
-                </button>
-              ) : (
-                <button
-                  className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button"
-                  // onClick={() => setInput()}
-                >
-                  Save Changes
                 </button>
               )}
               <button

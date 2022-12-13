@@ -33,3 +33,38 @@ export const createMission = async (content: string) => {
     );
   }
 };
+
+// FIXME: 一旦any
+export const updateMission = async (content: string, data: any) => {
+  const { accessToken, client, uid } = getTokens();
+
+  if (accessToken && client && uid) {
+    return mandalaClient.patch(
+      `missions/${data.id}`,
+      { mission: { content } },
+      {
+        headers: { 'access-token': accessToken, client, uid },
+      }
+    );
+  }
+};
+
+export const createSubMission = async (
+  content: string,
+  position: number,
+  parentData: any
+) => {
+  const { accessToken, client, uid } = getTokens();
+
+  if (accessToken && client && uid) {
+    return mandalaClient.post(
+      `missions/${parentData.id}/sub_missions`,
+      {
+        sub_mission: { content, position },
+      },
+      {
+        headers: { 'access-token': accessToken, client, uid },
+      }
+    );
+  }
+};
