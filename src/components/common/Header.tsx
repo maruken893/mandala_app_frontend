@@ -36,6 +36,9 @@ const Header = () => {
           <Link to="/test">
             <span className="text-sm">目標シート</span>
           </Link>
+          <Link to="/mypage">
+            <span className="ml-6 text-sm">マイページ</span>
+          </Link>
           <button onClick={handleSignOut}>
             <span className="ml-6 text-sm">ログアウト</span>
           </button>

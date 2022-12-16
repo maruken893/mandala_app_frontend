@@ -7,6 +7,7 @@ import { signIn } from '../lib/api/auth';
 import { useAuthContext } from '../context/AuthProvider';
 
 import AlertMessage from '../components/common/AlertMessagee';
+import { LockClosedIcon } from '@heroicons/react/24/outline';
 
 interface MessageState {
   message: string;
@@ -51,7 +52,7 @@ const SignIn: React.FC = () => {
 
         authDispatch({ type: 'signin' });
         authDispatch({ type: 'setUser', payload: { user: res.data.data } });
-        navigate('/');
+        navigate('/mypage');
       }
       // TODO: anyを使っている
     } catch (err: any) {
@@ -77,7 +78,7 @@ const SignIn: React.FC = () => {
         setMessageState={setMessageState}
       />
       <div className="w-4/5 p-6 mx-auto bg-white text-gray-700 border border-gray-100 rounded-md shadow-xl  lg:max-w-2xl">
-        <h1 className="text-3xl font-semibold text-center uppercase">
+        <h1 className="mt-3 text-3xl font-semibold text-center uppercase">
           ログイン
         </h1>
         <form className="mt-6">

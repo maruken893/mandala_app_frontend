@@ -4,6 +4,7 @@ import { User } from '../interfaces/auth';
 interface State {
   isSignedIn: boolean;
   currentUser: User | null;
+  mission: string;
 }
 
 // FIXME: payloaがany型
@@ -15,6 +16,7 @@ interface UserAuthAction {
 const INIT_AUTH: State = {
   isSignedIn: false,
   currentUser: null,
+  mission: '',
 };
 
 const reducer = (
@@ -29,7 +31,7 @@ const reducer = (
     case 'signout':
       return { ...state, isSignedIn: false };
     case 'setUser':
-      return { ...state, currentUser: payload.user };
+      return { ...state, currentUser: payload.user, mission: payload.mission };
     default:
       throw new Error('不明なアクションです');
   }

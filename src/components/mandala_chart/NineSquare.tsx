@@ -107,7 +107,7 @@ const NineSquare = ({
                   // todo
                   <div
                     key={todo_pos}
-                    className={`p-1 leading-3 bg-gray-200  border border-gray-300 hover:bg-gray-300 hover:cursor-pointer`}
+                    className={`p-1 leading-3 bg-gray-50  border border-gray-300 hover:bg-gray-200 hover:cursor-pointer`}
                     onClick={() =>
                       handleGridClick('todo', data, datas[4], todo_pos)
                     }

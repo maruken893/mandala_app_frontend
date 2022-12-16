@@ -2,7 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   createMission,
   createSubMission,
+  createTodo,
   updateMission,
+  updateSubMission,
+  updateTodo,
 } from '../../lib/api/mandala';
 
 interface ModalState {
@@ -19,19 +22,6 @@ const items = {
   todo: 'todo',
   '': '作成する',
 };
-
-const colors = [
-  'bg-red-400',
-  'bg-amber-500',
-  'bg-purple-400',
-  'bg-indigo-400',
-  'bg-gray-200',
-  'bg-cyan-300',
-  'bg-teal-300',
-  'bg-green-400',
-  'bg-yellow-300',
-  'bg-orange-400',
-];
 
 const Modal: React.FC<{
   modalState: ModalState;
@@ -58,6 +48,9 @@ const Modal: React.FC<{
           );
         }
       } else if (modalState.item === 'todo') {
+        if (typeof modalState.position === 'number') {
+          await createTodo(input, modalState.position, modalState.parentData);
+        }
       }
       setModalState((prev) => ({ ...prev, isOpen: false }));
       setInput('');
@@ -68,7 +61,13 @@ const Modal: React.FC<{
 
   const handleUpdateMissionButton = async () => {
     try {
-      await updateMission(input, modalState.data);
+      if (modalState.item === 'mission') {
+        await updateMission(input, modalState.data);
+      } else if (modalState.item === 'subMission') {
+        await updateSubMission(input, modalState.data, modalState.parentData);
+      } else if (modalState.item === 'todo') {
+        await updateTodo(input, modalState.data, modalState.parentData);
+      }
       setModalState((prev) => ({ ...prev, isOpen: false }));
       setInput('');
     } catch (err) {
@@ -102,16 +101,6 @@ const Modal: React.FC<{
                   {items[modalState.item]}を作成する
                 </h3>
               )}
-              {/* <button
-                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                onClick={() =>
-                  setMandalaState((prev) => ({ ...prev, isOpen: false }))
-                }
-              >
-                <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                  ×
-                </span>
-              </button> */}
             </div>
             {/*body*/}
             <div className="relative p-6 flex-auto">

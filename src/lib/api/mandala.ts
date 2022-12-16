@@ -52,15 +52,75 @@ export const updateMission = async (content: string, data: any) => {
 export const createSubMission = async (
   content: string,
   position: number,
-  parentData: any
+  mission: any
 ) => {
   const { accessToken, client, uid } = getTokens();
 
   if (accessToken && client && uid) {
     return mandalaClient.post(
-      `missions/${parentData.id}/sub_missions`,
+      `missions/${mission.id}/sub_missions`,
       {
         sub_mission: { content, position },
+      },
+      {
+        headers: { 'access-token': accessToken, client, uid },
+      }
+    );
+  }
+};
+
+export const updateSubMission = async (
+  content: string,
+  data: any,
+  mission: any
+) => {
+  const { accessToken, client, uid } = getTokens();
+
+  if (accessToken && client && uid) {
+    return mandalaClient.patch(
+      `missions/${mission.id}/sub_missions/${data.id}`,
+      {
+        sub_mission: { content },
+      },
+      {
+        headers: { 'access-token': accessToken, client, uid },
+      }
+    );
+  }
+};
+
+export const createTodo = async (
+  content: string,
+  position: number,
+  parentSubMission: any
+) => {
+  const { accessToken, client, uid } = getTokens();
+
+  if (accessToken && client && uid) {
+    return mandalaClient.post(
+      `missions/${parentSubMission.missionId}/sub_missions/${parentSubMission.id}/todos`,
+      {
+        todo: { content, position },
+      },
+      {
+        headers: { 'access-token': accessToken, client, uid },
+      }
+    );
+  }
+};
+
+export const updateTodo = (
+  content: string,
+  data: any,
+  parentSubMission: any
+) => {
+  const { accessToken, client, uid } = getTokens();
+
+  if (accessToken && client && uid) {
+    return mandalaClient.patch(
+      `missions/${parentSubMission.missionId}/sub_missions/${parentSubMission.id}/todos/${data.id}`,
+      {
+        todo: { content },
       },
       {
         headers: { 'access-token': accessToken, client, uid },
