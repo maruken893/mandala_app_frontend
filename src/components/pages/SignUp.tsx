@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-import { SignUpParams } from '../interfaces/auth';
-import { signUp } from '../lib/api/auth';
-import { useAuthContext } from '../context/AuthProvider';
-import AlertMessage from '../components/common/AlertMessagee';
+import { SignUpParams } from '../../interfaces/auth';
+import { signUp } from '../../lib/api/auth';
+import { useAuthContext } from '../../context/AuthProvider';
+import AlertMessage from '../common/AlertMessagee';
 
 interface MessageState {
   message: string;
@@ -144,10 +144,10 @@ const SignUp: React.FC = () => {
               className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
-          <div className="mt-6">
+          <div className="mt-6  mx-auto w-1/3">
             <button
               onClick={(e) => handleSubmit(e)}
-              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600"
+              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-lg hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600"
             >
               Submit
             </button>

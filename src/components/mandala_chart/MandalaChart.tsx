@@ -13,7 +13,7 @@ interface ModalState {
   position?: number;
 }
 
-const Top = () => {
+const MandalaChart = () => {
   // FIXME: 一旦any型 mandala_dataの9x9の配列
   const [mandalaState, setMandalaState] = useState<any>([]);
 
@@ -27,14 +27,14 @@ const Top = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetchMandala();
-      console.log(res);
+      // console.log(res);
       setMandalaState([...res?.data.data]);
     };
     fetchData();
   }, []);
 
   return (
-    <div className="">
+    <>
       {modalState.isOpen ? (
         <Modal modalState={modalState} setModalState={setModalState} />
       ) : null}
@@ -49,8 +49,8 @@ const Top = () => {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
-export default Top;
+export default MandalaChart;

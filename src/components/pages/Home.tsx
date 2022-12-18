@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Jumbotron from '../components/common/Jumbotron';
-import { useAuthContext } from '../context/AuthProvider';
-import { useLoadContext } from '../context/LoadProvider';
+import Jumbotron from '../common/Jumbotron';
+import { useAuthContext } from '../../context/AuthProvider';
+import { useLoadContext } from '../../context/LoadProvider';
 
-import { getCurrentUser } from '../lib/api/auth';
+import { getCurrentUser } from '../../lib/api/auth';
 
 const Home = () => {
   const { state: auth } = useAuthContext();
@@ -28,11 +28,11 @@ const Home = () => {
       ) : (
         <div className="w-4/5 my-20 py-10 m-auto bg-gray-200 text-gray-700  rounded-md shadow-xl flex flex-col items-center md:max-w-2xl ">
           <h2 className="text-center font-semibold text-2xl md:text-3xl mb-5">
-            Auth Demoへよこうそ！
+            マンダラアプリへようこそ！！
           </h2>
           <p className="text-center text-xs sm:text-base">
-            Auth Demoはdevise_token_authとReactの <br />{' '}
-            練習用に作ったサイトです。
+            マンダラアプリを使って同じ目標をもつ <br />{' '}
+            仲間と一緒に目標を達成しよう！
           </p>
           <div className="space-x-6">
             <Link to="/signup">

@@ -66,14 +66,19 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
           <div className="mt-6 py-6 border-t border-slate-200 text-center">
             <div className="flex flex-wrap justify-center">
               <div className="w-full px-4">
-                <h2 className="text-lg font-bold">目標</h2>
-                <h2>{user?.mission || auth.mission}</h2>
-                <p className="font-light leading-relaxed text-slate-600 mb-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptatum possimus odit beatae atque est saepe dolore, nobis,
-                  eos odio ab excepturi exercitationem eum ipsum incidunt
-                  quidem? Cum doloremque rem reiciendis!
-                </p>
+                <div className="mb-3">
+                  <h2 className="text-lg font-bold">目標</h2>
+                  <h2>{user?.mission || auth.mission}</h2>
+                </div>
+                <div>
+                  <h3>Biography</h3>
+                  <p className="font-light leading-relaxed text-slate-600 mb-4">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Voluptatum possimus odit beatae atque est saepe dolore,
+                    nobis, eos odio ab excepturi exercitationem eum ipsum
+                    incidunt quidem? Cum doloremque rem reiciendis!
+                  </p>
+                </div>
               </div>
             </div>
           </div>

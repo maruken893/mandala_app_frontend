@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-import { SignInParams } from '../interfaces/auth';
-import { signIn } from '../lib/api/auth';
-import { useAuthContext } from '../context/AuthProvider';
+import { SignInParams } from '../../interfaces/auth';
+import { signIn } from '../../lib/api/auth';
+import { useAuthContext } from '../../context/AuthProvider';
 
-import AlertMessage from '../components/common/AlertMessagee';
+import AlertMessage from '../common/AlertMessagee';
 import { LockClosedIcon } from '@heroicons/react/24/outline';
 
 interface MessageState {
@@ -121,10 +121,10 @@ const SignIn: React.FC = () => {
           <a href="#" className="text-xs text-blue-600 hover:underline">
             Forget Password?
           </a>
-          <div className="mt-6">
+          <div className="mt-6 mx-auto w-1/3">
             <button
               onClick={(e) => handleSubmit(e)}
-              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600"
+              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-lg hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600"
             >
               Submit
             </button>
