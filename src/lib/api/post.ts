@@ -9,8 +9,8 @@ const getTokens = () => {
   return { accessToken, client, uid };
 };
 
-export const fetchPosts = (user: any) => {
-  return postClient.get(`users/${user.id}/posts`);
+export const fetchPosts = async (user: any, page: number) => {
+  return postClient.get(`users/${user.id}/posts?page=${page}`);
 };
 
 export const createPost = async (user: any, content: string) => {

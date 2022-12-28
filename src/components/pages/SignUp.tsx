@@ -41,6 +41,8 @@ const SignUp: React.FC = () => {
       const access_token = res.headers['access-token'];
       const client = res.headers['client'];
       const uid = res.headers['uid'];
+      const id = res.data.data.id;
+      Cookies.set('_id', id);
 
       if (res.status === 200) {
         if (typeof access_token === 'string')

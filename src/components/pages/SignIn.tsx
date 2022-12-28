@@ -39,9 +39,12 @@ const SignIn: React.FC = () => {
     try {
       const res = await signIn(authParams);
 
+      console.log(res);
+
       const access_token = res.headers['access-token'];
       const client = res.headers['client'];
       const uid = res.headers['uid'];
+      const id = res.data.data.id;
 
       if (res.status === 200) {
         console.log(res);
@@ -49,6 +52,7 @@ const SignIn: React.FC = () => {
           Cookies.set('_access_token', access_token);
         if (typeof client === 'string') Cookies.set('_client', client);
         if (typeof uid === 'string') Cookies.set('_uid', uid);
+        Cookies.set('_id', id);
 
         authDispatch({ type: 'signin' });
         authDispatch({ type: 'setUser', payload: { user: res.data.data } });
@@ -118,9 +122,9 @@ const SignIn: React.FC = () => {
               className="block w-full px-4 py-2 mt-2  bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
-          <a href="#" className="text-xs text-blue-600 hover:underline">
+          {/* <a href="#" className="text-xs text-blue-600 hover:underline">
             Forget Password?
-          </a>
+          </a> */}
           <div className="mt-6 mx-auto w-1/3">
             <button
               onClick={(e) => handleSubmit(e)}
