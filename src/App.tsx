@@ -29,7 +29,11 @@ function App() {
         dispatch({ type: 'signin' });
         dispatch({
           type: 'setUser',
-          payload: { user: res?.data.data, mission: res?.data.mission.content },
+          payload: {
+            user: res?.data.data,
+            avatarUrl: res?.data.avatarUrl,
+            mission: res?.data.mission.content,
+          },
         });
       }
     } catch (err) {

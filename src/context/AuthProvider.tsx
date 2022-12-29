@@ -4,6 +4,7 @@ import { User } from '../interfaces/auth';
 interface State {
   isSignedIn: boolean;
   currentUser: User | null;
+  avatarUrl: string;
   mission: string;
 }
 
@@ -16,6 +17,7 @@ interface UserAuthAction {
 const INIT_AUTH: State = {
   isSignedIn: false,
   currentUser: null,
+  avatarUrl: '',
   mission: '',
 };
 
@@ -31,7 +33,12 @@ const reducer = (
     case 'signout':
       return { ...state, isSignedIn: false };
     case 'setUser':
-      return { ...state, currentUser: payload.user, mission: payload.mission };
+      return {
+        ...state,
+        currentUser: payload.user,
+        avatarUrl: payload.avatarUrl,
+        mission: payload.mission,
+      };
     default:
       throw new Error('不明なアクションです');
   }

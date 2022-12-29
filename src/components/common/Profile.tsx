@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
+import AvatarForm from './AvatarForm';
 
 // FIXME: anyを使ってる
 const Profile: React.FC<{ user?: any; mission?: string }> = ({
@@ -9,6 +10,8 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
 }) => {
   const { state: auth } = useAuthContext();
   const navigate = useNavigate();
+  console.log(auth.currentUser);
+  console.log(auth.avatarUrl);
 
   useEffect(() => {
     if (!user === false && !!auth.currentUser === false) {
@@ -24,11 +27,13 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
             <div className="w-full flex justify-center">
               <div className="relative">
                 <img
-                  src="https://github.com/creativetimofficial/soft-ui-dashboard-tailwind/blob/main/build/assets/img/team-2.jpg?raw=true"
-                  className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+                  src={auth.avatarUrl}
+                  className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px] max-h-[150px]"
                 />
+                {/* <Link to=>アバター画像を変更する</Link> */}
               </div>
             </div>
+
             <div className="text-center">
               <h3 className="mt-24 text-2xl text-slate-700 font-bold leading-normal mb-1">
                 {user?.name || auth.currentUser?.name}
@@ -84,6 +89,7 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
           </div>
         </div>
       </div>
+      <AvatarForm />
     </>
   );
 };
