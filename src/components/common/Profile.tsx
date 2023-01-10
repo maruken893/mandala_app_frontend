@@ -10,8 +10,8 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
 }) => {
   const { state: auth } = useAuthContext();
   const navigate = useNavigate();
-  console.log(auth.currentUser);
-  console.log(auth.avatarUrl);
+  console.log(auth);
+  // console.log(auth.avatarUrl);
 
   useEffect(() => {
     if (!user === false && !!auth.currentUser === false) {
@@ -38,10 +38,10 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
               <h3 className="mt-24 text-2xl text-slate-700 font-bold leading-normal mb-1">
                 {user?.name || auth.currentUser?.name}
               </h3>
-              <div className="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+              {/* <div className="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
                 <i className="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>
                 Paris, France
-              </div>
+              </div> */}
             </div>
             {/* <div className="w-full text-center">
               <div className="flex justify-center pb-0">
@@ -71,9 +71,9 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
           <div className="mt-6 py-6 border-t border-slate-200 text-center">
             <div className="flex flex-wrap justify-center">
               <div className="w-full px-4">
-                <div className="mb-3">
+                <div className="mb-5">
                   <h2 className="text-lg font-bold">目標</h2>
-                  <h2>{user?.mission || auth.mission}</h2>
+                  <h2>{auth?.mission ? auth.mission : '目標が未設定です'}</h2>
                 </div>
                 <div>
                   <h3>Biography</h3>

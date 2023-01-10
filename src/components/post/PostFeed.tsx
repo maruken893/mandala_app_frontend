@@ -28,7 +28,7 @@ const PostFeed = () => {
       setHasMore(false);
       return;
     }
-    setPosts((prev) => [...prev, ...newPosts]);
+    setPosts([...posts, ...newPosts]);
   };
 
   const loader = (
@@ -48,7 +48,7 @@ const PostFeed = () => {
       >
         <ul className="">
           {posts.map((post) => (
-            <li key={post.id}>{post.content}</li>
+            <li>{post.content}</li>
           ))}
         </ul>
       </InfiniteScroll>

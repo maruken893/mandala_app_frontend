@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import { SignInParams } from '../../interfaces/auth';
-import { signIn } from '../../lib/api/auth';
+import { getCurrentUser, signIn } from '../../lib/api/auth';
 import { useAuthContext } from '../../context/AuthProvider';
 
 import AlertMessage from '../common/AlertMessagee';
@@ -39,8 +39,6 @@ const SignIn: React.FC = () => {
     try {
       const res = await signIn(authParams);
 
-      console.log(res);
-
       const access_token = res.headers['access-token'];
       const client = res.headers['client'];
       const uid = res.headers['uid'];
@@ -55,7 +53,18 @@ const SignIn: React.FC = () => {
         Cookies.set('_id', id);
 
         authDispatch({ type: 'signin' });
+
         authDispatch({ type: 'setUser', payload: { user: res.data.data } });
+        const user = await getCurrentUser();
+        console.log(res?.data);
+        authDispatch({
+          type: 'setUser',
+          payload: {
+            user: user?.data.data,
+            avatarUrl: user?.data.avatarUrl,
+            mission: user?.data?.mission?.content,
+          },
+        });
         navigate('/mypage');
       }
       // TODO: anyを使っている
@@ -149,6 +158,12 @@ const SignIn: React.FC = () => {
 
 export default SignIn;
 
+function dispatch(arg0: {
+  type: string;
+  payload: { user: any; avatarUrl: any; mission: any };
+}) {
+  throw new Error('Function not implemented.');
+}
 // コピペ https://larainfo.com/blogs/react-js-login-form-with-tailwind-css-example
 // テストユーザー
 // test@example.com&password'

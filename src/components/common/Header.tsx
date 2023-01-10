@@ -34,9 +34,9 @@ const Header = () => {
     if (auth.isSignedIn) {
       return (
         <li>
-          <Link to="/test">
+          {/* <Link to="/test">
             <span className="text-sm">目標シート</span>
-          </Link>
+          </Link> */}
           <Link to="/mypage">
             <span className="ml-6 text-sm">マイページ</span>
           </Link>

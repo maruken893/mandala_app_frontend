@@ -24,7 +24,7 @@ function App() {
     try {
       setIsLoading(true);
       const res = await getCurrentUser();
-      // console.log(res);
+      console.log(res?.data);
       if (res?.data.isLogin === true) {
         dispatch({ type: 'signin' });
         dispatch({
@@ -32,7 +32,7 @@ function App() {
           payload: {
             user: res?.data.data,
             avatarUrl: res?.data.avatarUrl,
-            mission: res?.data.mission.content,
+            mission: res?.data?.mission?.content,
           },
         });
       }

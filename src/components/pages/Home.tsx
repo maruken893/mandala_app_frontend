@@ -5,6 +5,7 @@ import { useAuthContext } from '../../context/AuthProvider';
 import { useLoadContext } from '../../context/LoadProvider';
 
 import { getCurrentUser } from '../../lib/api/auth';
+import MandalaPage from './MandalaPage';
 
 const Home = () => {
   const { state: auth } = useAuthContext();
@@ -19,12 +20,7 @@ const Home = () => {
   return (
     <>
       {auth.isSignedIn ? (
-        <div className="mx-auto container">
-          <h1>Auth Demoのホームです</h1>
-          <h2>Email: {auth.currentUser?.email}</h2>
-          <h2>Name: {auth.currentUser?.name}</h2>
-          <button onClick={handleClick}>get current_user</button>
-        </div>
+        <MandalaPage />
       ) : (
         <div className="w-4/5 my-20 py-10 m-auto bg-gray-200 text-gray-700  rounded-md shadow-xl flex flex-col items-center md:max-w-2xl ">
           <h2 className="text-center font-semibold text-2xl md:text-3xl mb-5">

@@ -1,4 +1,3 @@
-import React from 'react';
 import PostFeed from '../post/PostFeed';
 import PostInput from '../post/PostInput';
 import MandalaChart from '../mandala_chart/MandalaChart';
