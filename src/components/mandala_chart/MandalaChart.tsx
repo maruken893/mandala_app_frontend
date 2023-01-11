@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { fetchMandala } from '../../lib/api/mandala';
-import Modal from '../common/Modal';
+import Modal from './Modal';
 import NineSquare from './NineSquare';
 
 interface ModalState {
