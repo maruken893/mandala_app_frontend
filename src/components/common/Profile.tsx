@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
-import AvatarForm from './AvatarForm';
 
 // FIXME: anyを使ってる
 const Profile: React.FC<{ user?: any; mission?: string }> = ({
@@ -26,10 +25,12 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
           <div className="flex flex-wrap justify-center">
             <div className="w-full flex justify-center">
               <div className="relative">
-                <img
-                  src={auth.avatarUrl}
-                  className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px] max-h-[150px]"
-                />
+                <Link to="avatar">
+                  <img
+                    src={auth.avatarUrl}
+                    className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px] max-h-[150px]"
+                  />
+                </Link>
                 {/* <Link to=>アバター画像を変更する</Link> */}
               </div>
             </div>
@@ -89,7 +90,6 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
           </div>
         </div>
       </div>
-      <AvatarForm />
     </>
   );
 };
