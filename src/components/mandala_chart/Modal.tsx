@@ -3,6 +3,7 @@ import {
   createMission,
   createSubMission,
   createTodo,
+  fetchMandala,
   updateMission,
   updateSubMission,
   updateTodo,
@@ -28,7 +29,8 @@ const items = {
 const Modal: React.FC<{
   modalState: ModalState;
   setModalState: React.Dispatch<React.SetStateAction<ModalState>>;
-}> = ({ modalState, setModalState }) => {
+  setMandalaState: React.Dispatch<any>;
+}> = ({ modalState, setModalState, setMandalaState }) => {
   const [errors, setErrors] = useState<String[]>([]);
   const [input, setInput] = useState(modalState.data?.content ?? '');
   const inputRef = useRef<HTMLInputElement>(null!);
@@ -36,9 +38,6 @@ const Modal: React.FC<{
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
-
-  console.log(modalState);
-  console.log(auth);
 
   const handleCreateMissionButton = async () => {
     try {
@@ -57,6 +56,9 @@ const Modal: React.FC<{
           await createTodo(input, modalState.position, modalState.parentData);
         }
       }
+      // マンダラチャートの更新
+      const res = await fetchMandala();
+      setMandalaState([...res?.data.data]);
       setModalState((prev) => ({ ...prev, isOpen: false }));
       setInput('');
     } catch (err) {
@@ -73,6 +75,9 @@ const Modal: React.FC<{
       } else if (modalState.item === 'todo') {
         await updateTodo(input, modalState.data, modalState.parentData);
       }
+      // マンダラチャートの更新
+      const res = await fetchMandala();
+      setMandalaState([...res?.data.data]);
       setModalState((prev) => ({ ...prev, isOpen: false }));
       setInput('');
     } catch (err) {
