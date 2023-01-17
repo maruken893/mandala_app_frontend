@@ -7,7 +7,6 @@ import { getCurrentUser, signIn } from '../../lib/api/auth';
 import { useAuthContext } from '../../context/AuthProvider';
 
 import AlertMessage from '../common/AlertMessagee';
-import { LockClosedIcon } from '@heroicons/react/24/outline';
 
 interface MessageState {
   message: string;

@@ -35,9 +35,9 @@ const MandalaChart = () => {
 
   return (
     <>
-      {modalState.isOpen ? (
+      {modalState.isOpen && (
         <Modal modalState={modalState} setModalState={setModalState} />
-      ) : null}
+      )}
       <div className="grid grid-cols-3 grid-rows-3 mt-6 mx-auto border  border-gray-300 w-84 h-84 sm:w-120 sm:h-120 md:w-156 md:h-156 md:mt-10 lg:ml-8 2xl:w-192 2xl:h-192 2xl:ml-12">
         {mandalaState.map((datas: any, i: number) => (
           <NineSquare

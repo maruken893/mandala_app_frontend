@@ -8,6 +8,8 @@ import {
   updateTodo,
 } from '../../lib/api/mandala';
 
+import { useAuthContext } from '../../context/AuthProvider';
+
 interface ModalState {
   isOpen: boolean;
   item: 'mission' | 'subMission' | 'todo' | '';
@@ -27,13 +29,16 @@ const Modal: React.FC<{
   modalState: ModalState;
   setModalState: React.Dispatch<React.SetStateAction<ModalState>>;
 }> = ({ modalState, setModalState }) => {
+  const [errors, setErrors] = useState<String[]>([]);
   const [input, setInput] = useState(modalState.data?.content ?? '');
   const inputRef = useRef<HTMLInputElement>(null!);
+  const { state: auth } = useAuthContext();
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
   console.log(modalState);
+  console.log(auth);
 
   const handleCreateMissionButton = async () => {
     try {
@@ -81,6 +86,15 @@ const Modal: React.FC<{
 
   useEffect(() => {
     inputRef.current.focus();
+    // 目標・サブ目標がからの時のエラー表示の処理
+    setErrors([]);
+    if (!auth.mission && modalState.item !== 'mission') {
+      setErrors(['対象となる目標が設定されていません']);
+    }
+
+    if (modalState.item === 'todo' && !modalState.parentData) {
+      setErrors((prev) => [...prev, '対象となるサブ目標が設定されていません']);
+    }
   }, []);
 
   return (
@@ -103,7 +117,18 @@ const Modal: React.FC<{
               )}
             </div>
             {/*body*/}
-            <div className="relative p-6 flex-auto">
+            <div className="relative p-5 flex-auto">
+              {/* TODO: */}
+              {/* エラー */}
+              {errors.length !== 0 && (
+                <div className="mb-3 w-11/12 py-3 px-5 mx-auto text-white bg-red-500 rounded-sm">
+                  <ul>
+                    {errors.map((error) => (
+                      <li className="text-xs text-white mb-1">{error}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <input
                 type="text"
                 ref={inputRef}
@@ -116,7 +141,9 @@ const Modal: React.FC<{
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
               {modalState.data ? (
                 <button
-                  className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  className={`bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ${
+                    errors.length !== 0 && 'opacity-50 cursor-not-allowed'
+                  }`}
                   type="button"
                   onClick={handleUpdateMissionButton}
                 >
@@ -124,9 +151,12 @@ const Modal: React.FC<{
                 </button>
               ) : (
                 <button
-                  className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  className={`bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ${
+                    errors.length !== 0 && 'opacity-50 cursor-not-allowed'
+                  }`}
                   type="button"
                   onClick={handleCreateMissionButton}
+                  disabled={errors.length !== 0}
                 >
                   Create
                 </button>
