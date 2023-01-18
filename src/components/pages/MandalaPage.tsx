@@ -4,7 +4,7 @@ import MandalaChart from '../mandala_chart/MandalaChart';
 
 const MandalaPage = () => {
   return (
-    <div className="border border-red-700 flex">
+    <div className="flex">
       <MandalaChart />
       <div className="mt-10 hidden md:block md:w-1/3 lg:w-5/12 lg:mx-auto">
         <PostInput />

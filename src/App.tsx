@@ -16,6 +16,7 @@ import Profile from './components/common/Profile';
 import { createMission } from './lib/api/mandala';
 import MandalaPage from './components/pages/MandalaPage';
 import Avagar from './components/pages/Avagar';
+import About from './components/pages/About';
 
 function App() {
   const { isLoading, setIsLoading } = useLoadContext();
@@ -51,6 +52,7 @@ function App() {
     <CommonLayout>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="about" element={<About />} />
         <Route path="signin" element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="test" element={<MandalaPage />} />

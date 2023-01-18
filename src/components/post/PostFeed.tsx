@@ -38,7 +38,7 @@ const PostFeed = () => {
   );
 
   return (
-    <div className="w-full h-3/4 border border-green-700 overflow-scroll">
+    <div className="w-full pー2 h-3/4 border border-zinc-400 rounded-sm overflow-scroll">
       <InfiniteScroll
         className="h-80"
         loadMore={loadMore}
