@@ -60,7 +60,7 @@ const Home = () => {
               <div className="w-90 h-120 rounded overflow-hidden shadow-lg">
                 <img
                   className="w-11/12 mx-auto mt-3"
-                  src="./../public/feature1.png"
+                  src="feature1.png"
                   alt="Sunset in the mountains"
                 />
                 <div className="mt-2 px-6 py-3 border-t-2 border-orange-300">
@@ -73,7 +73,7 @@ const Home = () => {
               <div className="w-90 h-120 rounded overflow-hidden shadow-lg">
                 <img
                   className="w-11/12 mx-auto mt-3"
-                  src="./../public/feature2.png"
+                  src="feature2.png"
                   alt="Sunset in the mountains"
                 />
                 <div className="mt-2 px-6 py-3 border-t-2 border-orange-300">
@@ -86,7 +86,7 @@ const Home = () => {
               <div className="w-90 h-120 rounded overflow-hidden shadow-lg">
                 <img
                   className="w-11/12 mx-auto mt-3"
-                  src="./../public/feature3.png"
+                  src="feature3.png"
                   alt="Sunset in the mountains"
                 />
                 <div className="mt-32 px-6 py-3 border-t-2 border-orange-300">
