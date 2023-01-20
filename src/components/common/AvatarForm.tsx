@@ -3,17 +3,25 @@ import { useAuthContext } from '../../context/AuthProvider';
 import { updateAvatar } from '../../lib/api/user';
 
 const AvatarForm = () => {
-  const [file, setFile] = useState();
+  const [newImage, setNewImage] = useState();
+  const [newImagePreview, setNewImagePreview] = useState();
   const { state: auth } = useAuthContext();
 
   const changeInputImage = (e: any) => {
-    setFile(e.target.files[0]);
+    setNewImage(undefined);
+    setNewImagePreview(undefined);
+    setNewImage(e.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      setNewImagePreview(e.target.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
     // const avatar = e.target.files[0];
-    const res = await updateAvatar(file);
+    await updateAvatar(newImage);
   };
 
   return (
@@ -36,6 +44,15 @@ const AvatarForm = () => {
           className="mb-2"
         />
         <br />
+        {!!newImagePreview && (
+          <div className="my-5">
+            <h2 className="mb-2">新しいアバター</h2>
+            <img
+              src={newImagePreview}
+              className="shadow-xl rounded-full align-middle border-none max-w-[150px] max-h-[150px] mx-auto"
+            />
+          </div>
+        )}
         <button
           type="submit"
           className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
