@@ -32,16 +32,6 @@ const Home = () => {
               9×9マスのマンダラチャートと呼ばれる表に、実現させたい目標に必要な要素を自分自身で考え整理することで、目標までに行うべきことを明確にすることができます。
             </p>
             <div className="space-x-3 mt-6">
-              {/* <Link to="/about">
-              <button
-                type="button"
-                className="px-8 py-3 bg-blue-500 text-white font-medium text-md leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                data-mdb-ripple="true"
-                data-mdb-ripple-color="light"
-              >
-                詳しく知る
-              </button>
-            </Link> */}
               <Link to="/signup">
                 <button
                   type="button"
