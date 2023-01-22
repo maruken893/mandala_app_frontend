@@ -3,7 +3,7 @@ import { User } from '../interfaces/auth';
 
 interface State {
   isSignedIn: boolean;
-  currentUser: User | null;
+  currentUser: User;
   avatarUrl: string;
   mission: string;
 }
@@ -16,7 +16,7 @@ interface UserAuthAction {
 
 const INIT_AUTH: State = {
   isSignedIn: false,
-  currentUser: null,
+  currentUser: { id: -1, uid: '', email: '', provider: '', name: '' },
   avatarUrl: '',
   mission: '',
 };

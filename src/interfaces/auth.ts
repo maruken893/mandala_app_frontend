@@ -18,7 +18,7 @@ export interface User {
   name: string;
   nickName?: string;
   image?: string;
-  allowPasswordChange: boolean;
-  created_at: Date;
-  updated_at: Date;
+  allowPasswordChange?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
 }
