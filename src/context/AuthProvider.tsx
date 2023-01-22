@@ -8,15 +8,20 @@ interface State {
   mission: string;
 }
 
-// FIXME: payloaがany型
+interface Payload {
+  user: User;
+  avatarUrl: string;
+  mission: string;
+}
+
 interface UserAuthAction {
   type: 'test' | 'signin' | 'signout' | 'setUser';
-  payload?: any;
+  payload: Payload;
 }
 
 const INIT_AUTH: State = {
   isSignedIn: false,
-  currentUser: { id: -1, uid: '', email: '', provider: '', name: '' },
+  currentUser: { id: NaN, uid: '', email: '', provider: '', name: '' },
   avatarUrl: '',
   mission: '',
 };
@@ -51,7 +56,6 @@ const AuthContext = createContext(
   }
 );
 
-// FIXME: React.FCとchildrenのany型を直したい
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {

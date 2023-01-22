@@ -3,24 +3,28 @@ import { useAuthContext } from '../../context/AuthProvider';
 import { updateAvatar } from '../../lib/api/user';
 
 const AvatarForm = () => {
-  const [newImage, setNewImage] = useState();
-  const [newImagePreview, setNewImagePreview] = useState();
+  const [newImage, setNewImage] = useState<File>();
+  const [newImagePreview, setNewImagePreview] = useState<string | null>();
   const { state: auth } = useAuthContext();
 
-  const changeInputImage = (e: any) => {
+  const changeInputImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewImage(undefined);
-    setNewImagePreview(undefined);
-    setNewImage(e.target.files[0]);
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      setNewImagePreview(e.target.result);
-    };
-    reader.readAsDataURL(e.target.files[0]);
+    setNewImagePreview(null);
+
+    if (e.target.files !== null) {
+      setNewImage(e.target.files[0]);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target !== null && typeof e.target.result === 'string') {
+          setNewImagePreview(e.target.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
   };
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const avatar = e.target.files[0];
     await updateAvatar(newImage);
   };
 
@@ -40,7 +44,7 @@ const AvatarForm = () => {
           type="file"
           name="avatar"
           accept="image/png, image/jpeg"
-          onChange={changeInputImage}
+          onChange={(e) => changeInputImage(e)}
           className="mb-2"
         />
         <br />
