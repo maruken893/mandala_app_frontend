@@ -4,18 +4,46 @@ import { fetchMandala } from '../../lib/api/mandala';
 import Modal from './Modal';
 import NineSquare from './NineSquare';
 
+interface Mission {
+  id: number;
+  content: string;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface SubMission {
+  id: number;
+  content: string;
+  userId: number;
+  position: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  missionId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface Todo {
+  id: number;
+  content: string;
+  userId: number;
+  position: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  subMissionId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 interface ModalState {
   isOpen: boolean;
   item: 'mission' | 'subMission' | 'todo' | '';
-  // FIXME: 一旦any
-  data: any;
-  parentData: any;
+  data: Mission | SubMission | Todo | {};
+  parentData: Mission | SubMission | {};
   position?: number;
 }
 
 const MandalaChart = () => {
-  // FIXME: 一旦any型 mandala_dataの9x9の配列
-  const [mandalaState, setMandalaState] = useState<any>([]);
+  const [mandalaState, setMandalaState] = useState<
+    (Mission | SubMission | Todo | {})[][]
+  >([]);
 
   const [modalState, setModalState] = useState<ModalState>({
     isOpen: false,
@@ -23,6 +51,8 @@ const MandalaChart = () => {
     data: {},
     parentData: {},
   });
+
+  console.log(mandalaState);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +72,7 @@ const MandalaChart = () => {
         />
       )}
       <div className="grid grid-cols-3 grid-rows-3 mt-6 mx-auto border  border-gray-300 w-84 h-84 sm:w-120 sm:h-120 md:w-156 md:h-156 md:mt-10 lg:ml-8 2xl:w-192 2xl:h-192 2xl:ml-12">
-        {mandalaState.map((datas: any, i: number) => (
+        {mandalaState.map((datas, i) => (
           <NineSquare
             key={i}
             datas={datas}
