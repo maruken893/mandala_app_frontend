@@ -16,7 +16,7 @@ interface Payload {
 
 interface UserAuthAction {
   type: 'test' | 'signin' | 'signout' | 'setUser';
-  payload: Payload;
+  payload?: Payload;
 }
 
 const INIT_AUTH: State = {
@@ -38,12 +38,14 @@ const reducer = (
     case 'signout':
       return { ...state, isSignedIn: false };
     case 'setUser':
-      return {
-        ...state,
-        currentUser: payload.user,
-        avatarUrl: payload.avatarUrl,
-        mission: payload.mission,
-      };
+      if (payload !== undefined) {
+        return {
+          ...state,
+          currentUser: payload.user,
+          avatarUrl: payload.avatarUrl,
+          mission: payload.mission,
+        };
+      }
     default:
       throw new Error('不明なアクションです');
   }

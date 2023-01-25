@@ -1,26 +1,28 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
+import { User } from '../../interfaces/auth';
 
-// FIXME: anyを使ってる
-const Profile: React.FC<{ user?: any; mission?: string }> = ({
-  user,
-  mission,
-}) => {
+const Profile: React.FC = () => {
   const { state: auth } = useAuthContext();
   const navigate = useNavigate();
-  console.log(auth);
-  // console.log(auth.avatarUrl);
+  const { id } = useParams();
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
-    if (!user === false && !!auth.currentUser === false) {
+    if (!auth.isSignedIn) {
       navigate('/signin');
+    }
+    if (!id) {
+      // ユーザーをフェッチする
+    } else {
+      setUser(auth.currentUser);
     }
   }, []);
 
   return (
     <>
-      <div className="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-24">
+      <div className="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-24">
         <div className="px-6">
           <div className="flex flex-wrap justify-center">
             <div className="w-full flex justify-center">
@@ -37,7 +39,7 @@ const Profile: React.FC<{ user?: any; mission?: string }> = ({
 
             <div className="text-center">
               <h3 className="mt-24 text-2xl text-slate-700 font-bold leading-normal mb-1">
-                {user?.name || auth.currentUser?.name}
+                {auth.currentUser?.name}
               </h3>
               {/* <div className="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
                 <i className="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>

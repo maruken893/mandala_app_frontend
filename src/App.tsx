@@ -57,6 +57,7 @@ function App() {
         <Route path="signup" element={<SignUp />} />
         <Route path="test" element={<MandalaPage />} />
         <Route path="mypage" element={<Profile />} />
+        <Route path="users/:id" element={<Profile />} />
         <Route path="mypage/avatar" element={<Avagar />} />
       </Routes>
     </CommonLayout>
