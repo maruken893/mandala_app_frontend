@@ -40,8 +40,6 @@ const Modal: React.FC<{
     setInput(e.target.value);
   };
 
-  console.log(input);
-
   const handleCreateMissionButton = async () => {
     try {
       if (modalState.item === 'mission') {

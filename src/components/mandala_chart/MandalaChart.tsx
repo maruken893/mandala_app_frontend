@@ -25,8 +25,6 @@ const MandalaChart = () => {
     parentData: null,
   });
 
-  console.log(mandalaState);
-
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetchMandala();
