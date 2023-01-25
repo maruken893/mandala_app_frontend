@@ -3,53 +3,26 @@ import { useEffect, useState } from 'react';
 import { fetchMandala } from '../../lib/api/mandala';
 import Modal from './Modal';
 import NineSquare from './NineSquare';
-
-interface Mission {
-  id: number;
-  content: string;
-  userId: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface SubMission {
-  id: number;
-  content: string;
-  userId: number;
-  position: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-  missionId: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface Todo {
-  id: number;
-  content: string;
-  userId: number;
-  position: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-  subMissionId: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { Mission, SubMission, Todo } from '../../interfaces/mandala';
 
 interface ModalState {
   isOpen: boolean;
   item: 'mission' | 'subMission' | 'todo' | '';
-  data: Mission | SubMission | Todo | {};
-  parentData: Mission | SubMission | {};
+  data: Mission | SubMission | Todo | null;
+  parentData: Mission | SubMission | null;
   position?: number;
 }
 
 const MandalaChart = () => {
   const [mandalaState, setMandalaState] = useState<
-    (Mission | SubMission | Todo | {})[][]
+    (Mission | SubMission | Todo | null)[][]
   >([]);
 
   const [modalState, setModalState] = useState<ModalState>({
     isOpen: false,
     item: '',
-    data: {},
-    parentData: {},
+    data: null,
+    parentData: null,
   });
 
   console.log(mandalaState);

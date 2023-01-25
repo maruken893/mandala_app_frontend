@@ -10,12 +10,13 @@ import {
 } from '../../lib/api/mandala';
 
 import { useAuthContext } from '../../context/AuthProvider';
+import { Mission, SubMission, Todo } from '../../interfaces/mandala';
 
 interface ModalState {
   isOpen: boolean;
   item: 'mission' | 'subMission' | 'todo' | '';
-  data: any;
-  parentData: any;
+  data: Mission | SubMission | Todo | null;
+  parentData: Mission | SubMission | null;
   position?: number;
 }
 
@@ -29,15 +30,17 @@ const items = {
 const Modal: React.FC<{
   modalState: ModalState;
   setModalState: React.Dispatch<React.SetStateAction<ModalState>>;
-  setMandalaState: React.Dispatch<any>;
+  setMandalaState: React.Dispatch<(Mission | SubMission | Todo | null)[][]>;
 }> = ({ modalState, setModalState, setMandalaState }) => {
   const [errors, setErrors] = useState<String[]>([]);
-  const [input, setInput] = useState(modalState.data?.content ?? '');
+  const [input, setInput] = useState(modalState?.data?.content ?? '');
   const inputRef = useRef<HTMLInputElement>(null!);
   const { state: auth } = useAuthContext();
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
+
+  console.log(input);
 
   const handleCreateMissionButton = async () => {
     try {
