@@ -9,7 +9,8 @@ const getTokens = () => {
   return { accessToken, client, uid };
 };
 
-export const updateAvatar = (avatar: any) => {
+export const updateAvatar = (avatar: File) => {
+  console.log(avatar);
   const { accessToken, client, uid } = getTokens();
 
   if (accessToken && client && uid) {
