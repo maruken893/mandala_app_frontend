@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 
 import postClient from './client';
+import { User } from '../../interfaces/util';
 
 const getTokens = () => {
   const accessToken = Cookies.get('_access_token');
@@ -9,11 +10,11 @@ const getTokens = () => {
   return { accessToken, client, uid };
 };
 
-export const fetchPosts = async (user: any, page: number) => {
+export const fetchPosts = async (user: User, page: number) => {
   return postClient.get(`users/${user.id}/posts?page=${page}`);
 };
 
-export const createPost = async (user: any, content: string) => {
+export const createPost = async (user: User, content: string) => {
   const { accessToken, client, uid } = getTokens();
 
   if (accessToken && client && uid) {
