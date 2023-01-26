@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 
 import mandalaClient from './client';
+import { Mission, SubMission, Todo } from '../../interfaces/mandala';
 
 const getTokens = () => {
   const accessToken = Cookies.get('_access_token');
@@ -34,8 +35,7 @@ export const createMission = async (content: string) => {
   }
 };
 
-// FIXME: 一旦any
-export const updateMission = async (content: string, data: any) => {
+export const updateMission = async (content: string, data: Mission) => {
   const { accessToken, client, uid } = getTokens();
 
   if (accessToken && client && uid) {
@@ -52,7 +52,7 @@ export const updateMission = async (content: string, data: any) => {
 export const createSubMission = async (
   content: string,
   position: number,
-  mission: any
+  mission: Mission
 ) => {
   const { accessToken, client, uid } = getTokens();
 
@@ -71,8 +71,8 @@ export const createSubMission = async (
 
 export const updateSubMission = async (
   content: string,
-  data: any,
-  mission: any
+  data: SubMission,
+  mission: Mission
 ) => {
   const { accessToken, client, uid } = getTokens();
 
@@ -92,7 +92,7 @@ export const updateSubMission = async (
 export const createTodo = async (
   content: string,
   position: number,
-  parentSubMission: any
+  parentSubMission: SubMission
 ) => {
   const { accessToken, client, uid } = getTokens();
 
@@ -111,8 +111,8 @@ export const createTodo = async (
 
 export const updateTodo = (
   content: string,
-  data: any,
-  parentSubMission: any
+  data: Mission,
+  parentSubMission: SubMission
 ) => {
   const { accessToken, client, uid } = getTokens();
 

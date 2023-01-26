@@ -3,26 +3,25 @@ import { useEffect, useState } from 'react';
 import { fetchMandala } from '../../lib/api/mandala';
 import Modal from './Modal';
 import NineSquare from './NineSquare';
-import { Mission, SubMission, Todo } from '../../interfaces/mandala';
 
 interface ModalState {
   isOpen: boolean;
   item: 'mission' | 'subMission' | 'todo' | '';
-  data: Mission | SubMission | Todo | null;
-  parentData: Mission | SubMission | null;
+  // FIXME: 一旦any
+  data: any;
+  parentData: any;
   position?: number;
 }
 
 const MandalaChart = () => {
-  const [mandalaState, setMandalaState] = useState<
-    (Mission | SubMission | Todo | null)[][]
-  >([]);
+  // FIXME: 一旦any型 mandala_dataの9x9の配列
+  const [mandalaState, setMandalaState] = useState<any>([]);
 
   const [modalState, setModalState] = useState<ModalState>({
     isOpen: false,
     item: '',
-    data: null,
-    parentData: null,
+    data: {},
+    parentData: {},
   });
 
   useEffect(() => {
@@ -43,7 +42,7 @@ const MandalaChart = () => {
         />
       )}
       <div className="grid grid-cols-3 grid-rows-3 mt-6 mx-auto border  border-gray-300 w-84 h-84 sm:w-120 sm:h-120 md:w-156 md:h-156 md:mt-10 lg:ml-8 2xl:w-192 2xl:h-192 2xl:ml-12">
-        {mandalaState.map((datas, i) => (
+        {mandalaState.map((datas: any, i: number) => (
           <NineSquare
             key={i}
             datas={datas}

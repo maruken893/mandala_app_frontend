@@ -10,7 +10,14 @@ import {
 } from '../../lib/api/mandala';
 
 import { useAuthContext } from '../../context/AuthProvider';
-import { Mission, SubMission, Todo } from '../../interfaces/mandala';
+import {
+  Mission,
+  SubMission,
+  Todo,
+  isMission,
+  isSubMission,
+  isTodo,
+} from '../../interfaces/mandala';
 
 interface ModalState {
   isOpen: boolean;
@@ -44,7 +51,10 @@ const Modal: React.FC<{
     try {
       if (modalState.item === 'mission') {
         await createMission(input);
-      } else if (modalState.item === 'subMission') {
+      } else if (
+        modalState.item === 'subMission' &&
+        isMission(modalState.parentData)
+      ) {
         if (typeof modalState.position === 'number') {
           await createSubMission(
             input,
@@ -52,7 +62,10 @@ const Modal: React.FC<{
             modalState.parentData
           );
         }
-      } else if (modalState.item === 'todo') {
+      } else if (
+        modalState.item === 'todo' &&
+        isSubMission(modalState.parentData)
+      ) {
         if (typeof modalState.position === 'number') {
           await createTodo(input, modalState.position, modalState.parentData);
         }
@@ -69,11 +82,19 @@ const Modal: React.FC<{
 
   const handleUpdateMissionButton = async () => {
     try {
-      if (modalState.item === 'mission') {
+      if (modalState.item === 'mission' && isMission(modalState.data)) {
         await updateMission(input, modalState.data);
-      } else if (modalState.item === 'subMission') {
+      } else if (
+        modalState.item === 'subMission' &&
+        isSubMission(modalState.data) &&
+        isMission(modalState.parentData)
+      ) {
         await updateSubMission(input, modalState.data, modalState.parentData);
-      } else if (modalState.item === 'todo') {
+      } else if (
+        modalState.item === 'todo' &&
+        isTodo(modalState.data) &&
+        isSubMission(modalState.parentData)
+      ) {
         await updateTodo(input, modalState.data, modalState.parentData);
       }
       // マンダラチャートの更新
