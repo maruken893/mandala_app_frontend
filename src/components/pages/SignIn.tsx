@@ -7,11 +7,14 @@ import { getCurrentUser, signIn } from '../../lib/api/auth';
 import { useAuthContext } from '../../context/AuthProvider';
 
 import AlertMessage from '../common/AlertMessagee';
+import { User } from '../../interfaces/auth';
 
 interface MessageState {
   message: string;
   isOpen: boolean;
 }
+
+interface AuthError {}
 
 const SignIn: React.FC = () => {
   const [authParams, setAuthParams] = useState<SignInParams>({
@@ -53,7 +56,6 @@ const SignIn: React.FC = () => {
 
         authDispatch({ type: 'signin' });
 
-        authDispatch({ type: 'setUser', payload: { user: res.data.data } });
         const user = await getCurrentUser();
         console.log(res?.data);
         authDispatch({
@@ -66,7 +68,6 @@ const SignIn: React.FC = () => {
         });
         navigate('/mypage');
       }
-      // TODO: anyを使っている
     } catch (err: any) {
       setAuthParams((prev) => ({ ...prev, password: '' }));
       if (err.response.status === 401) {
@@ -159,7 +160,7 @@ export default SignIn;
 
 function dispatch(arg0: {
   type: string;
-  payload: { user: any; avatarUrl: any; mission: any };
+  payload: { user: User; avatarUrl: string; mission: string };
 }) {
   throw new Error('Function not implemented.');
 }
