@@ -5,7 +5,11 @@ interface Post {
   date: Date;
 }
 
-const PostCard: React.FC<any> = ({ post, username, avatarUrl }) => {
+const PostCard: React.FC<{
+  post: Post;
+  username: string;
+  avatarUrl: string;
+}> = ({ post, username, avatarUrl }) => {
   return (
     <li>
       <div className="pb-3 border round-sm">
