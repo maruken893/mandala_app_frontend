@@ -51,7 +51,10 @@ const SignUp: React.FC = () => {
         if (typeof uid === 'string') Cookies.set('_uid', uid);
 
         authDispatch({ type: 'signin' });
-        authDispatch({ type: 'setUser', payload: { user: res.data.data } });
+        authDispatch({
+          type: 'setUser',
+          payload: { user: res.data.data, avatarUrl: '', mission: '' },
+        });
 
         navigate('/');
       }

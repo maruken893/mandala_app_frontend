@@ -28,10 +28,17 @@ const Profile: React.FC = () => {
             <div className="w-full flex justify-center">
               <div className="relative">
                 <Link to="avatar">
-                  <img
-                    src={auth.avatarUrl}
-                    className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px] max-h-[150px]"
-                  />
+                  {!!auth.avatarUrl ? (
+                    <img
+                      src={auth.avatarUrl}
+                      className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-18 max-w-[150px] max-h-[150px]"
+                    />
+                  ) : (
+                    <img
+                      src="default-avatar.png"
+                      className="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-18 max-w-[150px] max-h-[150px]"
+                    />
+                  )}
                 </Link>
                 {/* <Link to=>アバター画像を変更する</Link> */}
               </div>
