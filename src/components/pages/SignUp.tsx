@@ -54,7 +54,12 @@ const SignUp: React.FC = () => {
         authDispatch({ type: 'signin' });
         authDispatch({
           type: 'setUser',
-          payload: { user: res.data.data, avatarUrl: '', mission: '' },
+          payload: {
+            user: res.data.data,
+            avatarUrl: '',
+            mission: '',
+            confirmed: false,
+          },
         });
 
         navigate('/');

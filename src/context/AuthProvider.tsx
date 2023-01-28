@@ -6,12 +6,14 @@ interface State {
   currentUser: User;
   avatarUrl: string;
   mission: string;
+  confirmed: boolean;
 }
 
 interface Payload {
   user: User;
   avatarUrl: string;
   mission: string;
+  confirmed: boolean;
 }
 
 interface UserAuthAction {
@@ -24,6 +26,7 @@ const INIT_AUTH: State = {
   currentUser: { id: NaN, uid: '', email: '', provider: '', name: '' },
   avatarUrl: '',
   mission: '',
+  confirmed: false,
 };
 
 const reducer = (
@@ -44,6 +47,7 @@ const reducer = (
           currentUser: payload.user,
           avatarUrl: payload.avatarUrl,
           mission: payload.mission,
+          confirmed: payload.confirmed,
         };
       }
     default:

@@ -25,7 +25,9 @@ const AvatarForm = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await updateAvatar(newImage);
+    if (newImage !== undefined) {
+      await updateAvatar(newImage);
+    }
   };
 
   return (

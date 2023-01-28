@@ -5,7 +5,7 @@ import Home from '../pages/Home';
 import SignUp from '../pages/SignUp';
 import SignIn from '../pages/SignIn';
 import Top from '../mandala_chart/MandalaChart';
-import Profile from '../common/Profile';
+import Profile from '../pages/Profile';
 
 // 一旦仮実装した 参考:https://zenn.dev/longbridge/articles/61b05d8bdb014d
 // import RouteAuthGuard from './RouteAuthGuard';

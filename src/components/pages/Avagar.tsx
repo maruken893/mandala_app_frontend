@@ -1,5 +1,5 @@
 import React from 'react';
-import AvatarForm from '../common/AvatarForm';
+import AvatarForm from './AvatarForm';
 
 const Avagar = () => {
   return <AvatarForm />;

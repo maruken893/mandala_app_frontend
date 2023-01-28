@@ -12,7 +12,7 @@ import SignUp from './components/pages/SignUp';
 import SignIn from './components/pages/SignIn';
 import CommonLayout from './components/layout/Layout';
 import Top from './components/mandala_chart/MandalaChart';
-import Profile from './components/common/Profile';
+import Profile from './components/pages/Profile';
 import { createMission } from './lib/api/mandala';
 import MandalaPage from './components/pages/MandalaPage';
 import Avagar from './components/pages/Avagar';
@@ -35,6 +35,7 @@ function App() {
             user: res?.data.data,
             avatarUrl: res?.data.avatarUrl,
             mission: res?.data?.mission?.content,
+            confirmed: res?.data.confirmed,
           },
         });
       }
