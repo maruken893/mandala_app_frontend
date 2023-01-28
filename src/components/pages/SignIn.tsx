@@ -72,7 +72,7 @@ const SignIn: React.FC = () => {
       setAuthParams((prev) => ({ ...prev, password: '' }));
       if (err.response.status === 401) {
         setMessageState({
-          message: 'メールアドレスとパスワードの組み合わせが間違っています',
+          message: err.response.data.errors[0],
           isOpen: true,
         });
       } else {

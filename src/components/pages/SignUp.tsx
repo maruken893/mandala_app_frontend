@@ -18,6 +18,7 @@ const SignUp: React.FC = () => {
     name: '',
     password: '',
     passwordConfirmation: '',
+    confirmSuccessUrl: 'http://localhost:5173/signin',
   });
   const [messageState, setMessageState] = useState<MessageState>({
     message: '',
