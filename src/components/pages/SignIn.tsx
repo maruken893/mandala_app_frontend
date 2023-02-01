@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import { SignInParams } from '../../interfaces/auth';
@@ -14,8 +14,6 @@ interface MessageState {
   isOpen: boolean;
 }
 
-interface AuthError {}
-
 const SignIn: React.FC = () => {
   const [authParams, setAuthParams] = useState<SignInParams>({
     email: '',
@@ -25,9 +23,17 @@ const SignIn: React.FC = () => {
     message: '',
     isOpen: false,
   });
+  const [emailMessageState, setEmailMessageState] = useState<MessageState>({
+    message: '',
+    isOpen: false,
+  });
+  const { state } = useLocation();
   const navigate = useNavigate();
-
   const { dispatch: authDispatch } = useAuthContext();
+
+  useEffect(() => {
+    setEmailMessageState({ message: state?.message, isOpen: !!state?.message });
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAuthParams((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -90,6 +96,12 @@ const SignIn: React.FC = () => {
       <AlertMessage
         messageState={messageState}
         setMessageState={setMessageState}
+        color="bg-red-500"
+      />
+      <AlertMessage
+        messageState={emailMessageState}
+        setMessageState={setEmailMessageState}
+        color="bg-blue-500"
       />
       <div className="w-4/5 p-6 mx-auto bg-white text-gray-700 border border-gray-100 rounded-md shadow-xl  lg:max-w-2xl">
         <h1 className="mt-3 text-3xl font-semibold text-center uppercase">

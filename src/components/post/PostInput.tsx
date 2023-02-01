@@ -6,7 +6,17 @@ import { useState } from 'react';
 import { createPost } from '../../lib/api/post';
 import { useAuthContext } from '../../context/AuthProvider';
 
-const PostInput = () => {
+interface Post {
+  id: number;
+  content: string;
+  user_id: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+const PostInput: React.FC<{
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
+}> = ({ setPosts }) => {
   const [postInput, setPostInput] = useState('');
   const { state: auth } = useAuthContext();
 
@@ -18,8 +28,9 @@ const PostInput = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    await createPost(auth.currentUser, postInput);
+    const res = await createPost(auth.currentUser, postInput);
     setPostInput('');
+    setPosts((prev) => [res?.data.newPost, ...prev]);
   };
 
   return (

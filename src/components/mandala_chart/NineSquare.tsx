@@ -54,12 +54,11 @@ const NineSquare = ({
     <>
       <div className="grid grid-cols-3 grid-rows-3 w-28 h-28  sm:w-40 sm:h-40 md:w-52 md:h-52  2xl:w-64 2xl:h-64">
         {datas.map((data, position) => (
-          <>
+          <React.Fragment key={position}>
             {/* 真ん中の9マスのmissionとsub_mission (colorsはpositiontだとうまくマッチする) */}
             {sub_mission_pos === 4 ? (
               <>
                 <div
-                  key={position}
                   className={`p-1 leading-3 ${colors[position]} border border-gray-300 hover:opacity-80 hover:cursor-pointer`}
                   onClick={() =>
                     position === 4
@@ -77,7 +76,6 @@ const NineSquare = ({
                 {/* そのほかの9マスの真ん中(sub_mission) */}
                 {position === 4 ? (
                   <div
-                    key={position}
                     className={`p-1 leading-3 ${colors[sub_mission_pos]} border border-gray-300 hover:opacity-80 hover:cursor-pointer`}
                     onClick={() =>
                       handleGridClick(
@@ -95,7 +93,6 @@ const NineSquare = ({
                 ) : (
                   // todo
                   <div
-                    key={position}
                     className={`p-1 leading-3 bg-gray-50  border border-gray-300 hover:bg-gray-200 hover:cursor-pointer`}
                     onClick={() =>
                       handleGridClick('todo', data, datas[4], position)
@@ -108,7 +105,7 @@ const NineSquare = ({
                 )}
               </>
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </>

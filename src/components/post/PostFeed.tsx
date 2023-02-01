@@ -14,8 +14,10 @@ interface Post {
   updated_at: Date;
 }
 
-const PostFeed = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+const PostFeed: React.FC<{
+  posts: Post[];
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
+}> = ({ posts, setPosts }) => {
   const [hasMore, setHasMore] = useState(true);
   const { state: auth } = useAuthContext();
 
@@ -31,7 +33,6 @@ const PostFeed = () => {
     setPosts([...posts, ...newPosts]);
   };
 
-  console.log(posts);
   const loader = (
     <div className="loader" key={0}>
       Loading...
@@ -50,6 +51,7 @@ const PostFeed = () => {
         <ul className="p-4">
           {posts.map((post) => (
             <PostCard
+              key={post.id}
               post={post}
               username={auth?.currentUser.name}
               avatarUrl={auth?.avatarUrl}

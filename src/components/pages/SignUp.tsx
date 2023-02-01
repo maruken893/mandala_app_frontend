@@ -50,7 +50,11 @@ const SignUp: React.FC = () => {
           Cookies.set('_access_token', access_token);
         if (typeof client === 'string') Cookies.set('_client', client);
         if (typeof uid === 'string') Cookies.set('_uid', uid);
-        navigate('/signin');
+        navigate('/signin', {
+          state: {
+            message: '入力されたメールアドレスに有効化メールを送信しました',
+          },
+        });
       }
       // FIXME: errにanyを使ってる
     } catch (err: any) {
@@ -69,6 +73,7 @@ const SignUp: React.FC = () => {
       <AlertMessage
         messageState={messageState}
         setMessageState={setMessageState}
+        color="bg-red-500"
       />
       <div className="w-4/5 p-6 m-auto bg-white text-gray-700 rounded-md border border-zinc-100 shadow-xl lg:max-w-2xl">
         <h1 className="text-3xl font-semibold text-center uppercase">

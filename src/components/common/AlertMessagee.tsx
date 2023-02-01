@@ -9,13 +9,20 @@ interface MessageState {
 interface AlertMessageProps {
   messageState: MessageState;
   setMessageState: React.Dispatch<React.SetStateAction<MessageState>>;
+  color: 'bg-red-500' | 'bg-blue-500';
 }
 
-const AlertMessage = ({ messageState, setMessageState }: AlertMessageProps) => {
+const AlertMessage = ({
+  messageState,
+  setMessageState,
+  color,
+}: AlertMessageProps) => {
   return (
     <>
       {messageState.isOpen && (
-        <div className="flex w-3/5 p-4 mb-6 mx-auto text-sm text-white bg-red-500 rounded-sm">
+        <div
+          className={`flex w-3/5 p-4 mb-6 mx-auto text-sm text-white ${color} rounded-sm`}
+        >
           <div className="w-11/12">
             <span>{messageState.message}</span>
           </div>
