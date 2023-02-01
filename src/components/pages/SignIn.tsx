@@ -146,7 +146,7 @@ const SignIn: React.FC = () => {
           </div>
           <p className="text-xs">
             パスワードを忘れた場合は
-            <a href="#" className="text-blue-600 hover:underline">
+            <a href="passwordforget" className="text-blue-600 hover:underline">
               こちら
             </a>
           </p>

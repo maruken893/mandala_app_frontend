@@ -17,6 +17,8 @@ import { createMission } from './lib/api/mandala';
 import MandalaPage from './components/pages/MandalaPage';
 import Avagar from './components/pages/Avagar';
 import About from './components/pages/About';
+import PasswornForget from './components/pages/PasswornForget';
+import ChangePassword from './components/pages/ChangePassword';
 
 function App() {
   const { isLoading, setIsLoading } = useLoadContext();
@@ -59,6 +61,8 @@ function App() {
         <Route path="mypage" element={<Profile />} />
         <Route path="users/:id" element={<Profile />} />
         <Route path="mypage/avatar" element={<Avagar />} />
+        <Route path="passwordforget" element={<PasswornForget />} />
+        <Route path="changepassword" element={<ChangePassword />} />
       </Routes>
     </CommonLayout>
   );

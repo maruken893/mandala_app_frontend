@@ -4,8 +4,9 @@ import Cookies from 'js-cookie';
 
 import { SignUpParams } from '../../interfaces/auth';
 import { signUp } from '../../lib/api/auth';
-import { useAuthContext } from '../../context/AuthProvider';
 import AlertMessage from '../common/AlertMessagee';
+
+const signUpRedirectUrl = import.meta.env.VITE_USER_SIGNUP_REDIRECT_URL;
 
 interface MessageState {
   message: string;
@@ -18,13 +19,12 @@ const SignUp: React.FC = () => {
     name: '',
     password: '',
     passwordConfirmation: '',
-    confirmSuccessUrl: 'http://localhost:5173/signin',
+    confirmSuccessUrl: signUpRedirectUrl,
   });
   const [messageState, setMessageState] = useState<MessageState>({
     message: '',
     isOpen: false,
   });
-  const { dispatch: authDispatch } = useAuthContext();
   const navigate = useNavigate();
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,11 +52,11 @@ const SignUp: React.FC = () => {
         if (typeof uid === 'string') Cookies.set('_uid', uid);
         navigate('/signin', {
           state: {
-            message: '入力されたメールアドレスに有効化メールを送信しました',
+            message:
+              '入力されたメールアドレスに有効化メールを送信しました。メールからユーザーを有効化してください。',
           },
         });
       }
-      // FIXME: errにanyを使ってる
     } catch (err: any) {
       console.log(err);
       if (err.response.status === 422) {
