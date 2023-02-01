@@ -1,4 +1,3 @@
-import { access } from 'fs';
 import React, { useState } from 'react';
 import { Navigate, useSearchParams, useNavigate } from 'react-router-dom';
 import { changePassword } from '../../lib/api/user';

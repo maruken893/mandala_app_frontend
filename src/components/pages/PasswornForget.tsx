@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { forgetPassword } from '../../lib/api/user';
+import AlertMessage from '../common/AlertMessagee';
 
 const redirectUrl = import.meta.env.VITE_PASSWORD_FORGET_REDIRECT_URL;
 
@@ -7,6 +8,12 @@ const PasswornForget = () => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ message: '', isOpen: false });
+  const [emailSendMessage, setEmailSendMessage] = useState({
+    message: '',
+    isOpen: false,
+  });
+
+  console.log(redirectUrl);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,13 +22,28 @@ const PasswornForget = () => {
         email,
         redirectUrl,
       });
+      setEmailSendMessage({
+        message: '入力されたメールアドレスにメールを送りました。',
+        isOpen: true,
+      });
     } catch (err) {
-      console.log(err);
+      setError({ message: 'emailが見つかりませんでした', isOpen: true });
     }
+    setEmail('');
   };
 
   return (
     <div className="mt-8 w-4/5 p-6 mx-auto bg-white text-gray-700 border border-gray-100 rounded-md shadow-xl  lg:max-w-2xl">
+      <AlertMessage
+        messageState={error}
+        setMessageState={setError}
+        color="bg-red-500"
+      />
+      <AlertMessage
+        messageState={emailSendMessage}
+        setMessageState={setEmailSendMessage}
+        color="bg-blue-500"
+      />
       <h1 className="mt-3 text-3xl font-semibold text-center uppercase">
         パスワードを変更する
       </h1>
