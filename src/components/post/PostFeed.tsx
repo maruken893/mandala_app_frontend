@@ -20,11 +20,10 @@ const PostFeed = () => {
   const { state: auth } = useAuthContext();
 
   const loadMore = async (page: number) => {
-    const res = await fetchPosts({ id: Cookies.get('_id') }, page);
-    const newPosts = res.data.data.posts;
+    const id = Number(Cookies.get('_id'));
 
-    // console.log(page);
-    // console.log(res.data.data.posts);
+    const res = await fetchPosts({ id: id }, page);
+    const newPosts = res.data.data.posts;
     if (newPosts.length < 1) {
       setHasMore(false);
       return;
@@ -32,6 +31,7 @@ const PostFeed = () => {
     setPosts([...posts, ...newPosts]);
   };
 
+  console.log(posts);
   const loader = (
     <div className="loader" key={0}>
       Loading...

@@ -12,11 +12,6 @@ const Home = () => {
   const { isLoading } = useLoadContext();
   const navigate = useNavigate();
 
-  const handleClick = async () => {
-    const user = await getCurrentUser();
-    console.log(user);
-  };
-
   return (
     <>
       {auth.isSignedIn ? (

@@ -26,7 +26,6 @@ function App() {
     try {
       setIsLoading(true);
       const res = await getCurrentUser();
-      console.log(res?.data);
       if (res?.data.isLogin === true) {
         dispatch({ type: 'signin' });
         dispatch({

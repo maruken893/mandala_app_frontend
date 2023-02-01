@@ -85,7 +85,7 @@ const Profile: React.FC = () => {
                   <h2 className="text-lg font-bold">目標</h2>
                   <h2>{auth?.mission ? auth.mission : '目標が未設定です'}</h2>
                 </div>
-                <div>
+                {/* <div>
                   <h3>Biography</h3>
                   <p className="font-light leading-relaxed text-slate-600 mb-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -93,7 +93,7 @@ const Profile: React.FC = () => {
                     nobis, eos odio ab excepturi exercitationem eum ipsum
                     incidunt quidem? Cum doloremque rem reiciendis!
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

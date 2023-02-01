@@ -50,19 +50,7 @@ const SignUp: React.FC = () => {
           Cookies.set('_access_token', access_token);
         if (typeof client === 'string') Cookies.set('_client', client);
         if (typeof uid === 'string') Cookies.set('_uid', uid);
-
-        authDispatch({ type: 'signin' });
-        authDispatch({
-          type: 'setUser',
-          payload: {
-            user: res.data.data,
-            avatarUrl: '',
-            mission: '',
-            confirmed: false,
-          },
-        });
-
-        navigate('/');
+        navigate('/signin');
       }
       // FIXME: errにanyを使ってる
     } catch (err: any) {
