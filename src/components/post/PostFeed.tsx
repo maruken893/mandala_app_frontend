@@ -40,7 +40,7 @@ const PostFeed: React.FC<{
   );
 
   return (
-    <div className="w-full h-3/4 border border-zinc-400 rounded-sm overflow-scroll">
+    <div className="w-full h-4/5 border border-zinc-400 rounded-sm overflow-scroll">
       <InfiniteScroll
         className="h-80"
         loadMore={loadMore}

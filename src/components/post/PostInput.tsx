@@ -1,8 +1,6 @@
 import { useState } from 'react';
 // import TextareaAutosize from 'react-textarea-autosize';
 
-// formのライブラリ: https://www.npmjs.com/package/react-hook-form
-
 import { createPost } from '../../lib/api/post';
 import { useAuthContext } from '../../context/AuthProvider';
 
@@ -38,8 +36,22 @@ const PostInput: React.FC<{
   };
 
   return (
-    <div className="">
-      <form action="" className="text-center p-3">
+    <div className="flex">
+      <div className="">
+        {auth.avatarUrl ? (
+          <img
+            src={auth.avatarUrl}
+            className="w-20 shadow-xl rounded-full align-middle border-none"
+          />
+        ) : (
+          <img
+            src="default-avatar.png"
+            className="w-20 shadow-xl rounded-full align-middle border-none"
+          />
+        )}
+        <p className="mt-1 text-xl text-center">{auth.currentUser.name}</p>
+      </div>
+      <form action="" className="grow text-center mb-5 ml-5">
         <textarea
           className="mr-0 p-2 w-full resize-none border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
           name="postInput"
