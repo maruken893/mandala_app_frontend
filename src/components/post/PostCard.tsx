@@ -1,8 +1,12 @@
 import React from 'react';
+import moment from 'moment';
 
 interface Post {
+  id: number;
   content: string;
-  date?: Date;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const PostCard: React.FC<{
@@ -12,8 +16,8 @@ const PostCard: React.FC<{
 }> = ({ post, username, avatarUrl }) => {
   return (
     <li>
-      <div className="pb-3 border round-sm">
-        <div className="flex items-center my-2 ml-2">
+      <div className="pt-3 pb-6 border round-sm relative">
+        <div className="flex items-center mt-2 ml-2">
           {avatarUrl ? (
             <img
               src={avatarUrl}
@@ -27,7 +31,10 @@ const PostCard: React.FC<{
           )}
           <p className="pl-4 text-lg font-medium">{username}</p>
         </div>
-        <p className="pl-16 tex-sm">{post.content}</p>
+        <p className="pl-16 pr-2 tex-sm">{post.content}</p>
+        <span className="text-sm absolute right-4 bottom-1">
+          {moment(post.createdAt).format('ll')}
+        </span>
       </div>
     </li>
   );

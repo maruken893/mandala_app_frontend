@@ -21,16 +21,20 @@ const PostInput: React.FC<{
   const { state: auth } = useAuthContext();
 
   const changePostInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPostInput(e.target.value);
+    if (e.target.value.length < 100) {
+      setPostInput(e.target.value);
+    }
   };
 
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    const res = await createPost(auth.currentUser, postInput);
-    setPostInput('');
-    setPosts((prev) => [res?.data.newPost, ...prev]);
+    if (postInput.length !== 0 && postInput.length <= 100) {
+      const res = await createPost(auth.currentUser, postInput);
+      setPostInput('');
+      setPosts((prev) => [res?.data.newPost, ...prev]);
+    }
   };
 
   return (
@@ -41,7 +45,7 @@ const PostInput: React.FC<{
           name="postInput"
           value={postInput}
           onChange={changePostInput}
-          placeholder="postを投稿する..."
+          placeholder="postを投稿する(100文字以下)"
           rows={2}
         />
         <button

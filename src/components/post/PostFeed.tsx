@@ -9,9 +9,9 @@ import PostCard from './PostCard';
 interface Post {
   id: number;
   content: string;
-  user_id: number;
-  created_at: Date;
-  updated_at: Date;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const PostFeed: React.FC<{
