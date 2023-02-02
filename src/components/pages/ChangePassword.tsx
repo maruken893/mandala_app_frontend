@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Navigate, useSearchParams, useNavigate } from 'react-router-dom';
 import { changePassword } from '../../lib/api/user';
 import AlertMessage from '../common/AlertMessagee';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 const ChangePassword = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ message: '', isOpen: false });
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const ChangePassword = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     if (password === '' || passwordConfirmation === '') {
       setError({ message: 'パスワードが空です', isOpen: true });
     } else if (password !== passwordConfirmation) {
@@ -45,6 +48,7 @@ const ChangePassword = () => {
         setError({ message: 'パスワードが揃っていません', isOpen: true });
       }
     }
+    setIsLoading(false);
   };
 
   return (
@@ -56,7 +60,7 @@ const ChangePassword = () => {
       />
       <div className="w-4/5 p-6 m-auto bg-white text-gray-700 rounded-md border border-zinc-100 shadow-xl lg:max-w-2xl">
         <h1 className="text-3xl font-semibold text-center uppercase">
-          ユーザー登録
+          パスワードを変更する
         </h1>
         <form className="mt-6" onSubmit={onSubmit}>
           <div className="mb-2">
@@ -96,9 +100,13 @@ const ChangePassword = () => {
             />
           </div>
           <div className="mt-6  mx-auto w-1/3">
-            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-lg hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600">
-              パスワードを変更する
-            </button>
+            {!isLoading ? (
+              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-lg hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600">
+                パスワードを変更する
+              </button>
+            ) : (
+              <LoadingSpinner />
+            )}
           </div>
         </form>
       </div>

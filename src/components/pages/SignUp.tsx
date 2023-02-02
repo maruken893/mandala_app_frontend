@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 
 import { SignUpParams } from '../../interfaces/auth';
 import { signUp } from '../../lib/api/auth';
+import LoadingSpinner from '../common/LoadingSpinner';
 import AlertMessage from '../common/AlertMessagee';
 
 const signUpRedirectUrl = import.meta.env.VITE_USER_SIGNUP_REDIRECT_URL;
@@ -25,6 +26,7 @@ const SignUp: React.FC = () => {
     message: '',
     isOpen: false,
   });
+  const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,21 +37,10 @@ const SignUp: React.FC = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-
+    setIsloading(true);
     try {
       const res = await signUp(signUpParams);
-
-      const access_token = res.headers['access-token'];
-      const client = res.headers['client'];
-      const uid = res.headers['uid'];
-      const id = res.data.data.id;
-      Cookies.set('_id', id);
-
       if (res.status === 200) {
-        if (typeof access_token === 'string')
-          Cookies.set('_access_token', access_token);
-        if (typeof client === 'string') Cookies.set('_client', client);
-        if (typeof uid === 'string') Cookies.set('_uid', uid);
         navigate('/signin', {
           state: {
             message:
@@ -66,6 +57,7 @@ const SignUp: React.FC = () => {
         });
       }
     }
+    setIsloading(false);
   };
 
   return (
@@ -148,13 +140,17 @@ const SignUp: React.FC = () => {
               className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
-          <div className="mt-6  mx-auto w-1/3">
-            <button
-              onClick={(e) => handleSubmit(e)}
-              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-lg hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600"
-            >
-              Submit
-            </button>
+          <div className="mt-6 mx-auto w-1/3 text-center">
+            {!isLoading ? (
+              <button
+                onClick={(e) => handleSubmit(e)}
+                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-lg hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600"
+              >
+                Submit
+              </button>
+            ) : (
+              <LoadingSpinner />
+            )}
           </div>
         </form>
       </div>

@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import {
+  useNavigate,
+  Link,
+  useLocation,
+  useSearchParams,
+} from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import { SignInParams } from '../../interfaces/auth';
@@ -7,6 +12,7 @@ import { getCurrentUser, signIn } from '../../lib/api/auth';
 import { useAuthContext } from '../../context/AuthProvider';
 
 import AlertMessage from '../common/AlertMessagee';
+import LoadingSpinner from '../common/LoadingSpinner';
 import { User } from '../../interfaces/auth';
 
 interface MessageState {
@@ -27,12 +33,24 @@ const SignIn: React.FC = () => {
     message: '',
     isOpen: false,
   });
+  const [verifiedMessage, setVerifiedMessage] = useState<MessageState>({
+    message: '',
+    isOpen: false,
+  });
+  const [isLoading, setIsLoading] = useState(false);
   const { state } = useLocation();
   const navigate = useNavigate();
+  const [searchParams, setSearchparams] = useSearchParams();
   const { dispatch: authDispatch } = useAuthContext();
 
   useEffect(() => {
     setEmailMessageState({ message: state?.message, isOpen: !!state?.message });
+    if (searchParams.get('account_confirmation_success')) {
+      setVerifiedMessage({
+        message: 'ユーザーが有効化されました',
+        isOpen: true,
+      });
+    }
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,10 +61,9 @@ const SignIn: React.FC = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const res = await signIn(authParams);
-
       const access_token = res.headers['access-token'];
       const client = res.headers['client'];
       const uid = res.headers['uid'];
@@ -89,6 +106,7 @@ const SignIn: React.FC = () => {
         });
       }
     }
+    setIsLoading(false);
   };
 
   return (
@@ -101,6 +119,11 @@ const SignIn: React.FC = () => {
       <AlertMessage
         messageState={emailMessageState}
         setMessageState={setEmailMessageState}
+        color="bg-blue-500"
+      />
+      <AlertMessage
+        messageState={verifiedMessage}
+        setMessageState={setVerifiedMessage}
         color="bg-blue-500"
       />
       <div className="w-4/5 p-6 mx-auto bg-white text-gray-700 border border-gray-100 rounded-md shadow-xl  lg:max-w-2xl">
@@ -151,12 +174,16 @@ const SignIn: React.FC = () => {
             </a>
           </p>
           <div className="mt-6 mx-auto w-1/3">
-            <button
-              onClick={(e) => handleSubmit(e)}
-              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-lg hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600"
-            >
-              Submit
-            </button>
+            {!isLoading ? (
+              <button
+                onClick={(e) => handleSubmit(e)}
+                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded-lg hover:bg-blue-600 hover:opacity-90 focus:outline-none focus:bg-blue-600"
+              >
+                Submit
+              </button>
+            ) : (
+              <LoadingSpinner />
+            )}
           </div>
         </form>
 
