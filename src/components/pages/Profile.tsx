@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import { User } from '../../interfaces/auth';
+import AlertMessage from '../common/AlertMessagee';
 
 const Profile: React.FC = () => {
   const { state: auth } = useAuthContext();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { state } = useLocation();
   const [user, setUser] = useState<User>();
+  const [avatarMessage, setAvatarMessage] = useState({
+    message: '',
+    isOpen: false,
+  });
 
   useEffect(() => {
     if (!auth.isSignedIn) {
@@ -18,10 +24,22 @@ const Profile: React.FC = () => {
     } else {
       setUser(auth.currentUser);
     }
+
+    if (state?.message) {
+      setAvatarMessage({
+        message: state.message,
+        isOpen: true,
+      });
+    }
   }, []);
 
   return (
     <>
+      <AlertMessage
+        messageState={avatarMessage}
+        setMessageState={setAvatarMessage}
+        color="bg-blue-500"
+      />
       <div className="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-24">
         <div className="px-6">
           <div className="flex flex-wrap justify-center">
