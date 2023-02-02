@@ -5,14 +5,7 @@ import Cookies from 'js-cookie';
 import { fetchPosts } from '../../lib/api/post';
 import { useAuthContext } from '../../context/AuthProvider';
 import PostCard from './PostCard';
-
-interface Post {
-  id: number;
-  content: string;
-  userId: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { Post } from '../../interfaces/util';
 
 const PostFeed: React.FC<{
   posts: Post[];

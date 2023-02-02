@@ -1,13 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-interface Post {
-  id: number;
-  content: string;
-  userId: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { Post } from '../../interfaces/util';
 
 const PostCard: React.FC<{
   post: Post;

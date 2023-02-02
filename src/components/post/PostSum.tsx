@@ -2,14 +2,7 @@ import { useState } from 'react';
 
 import PostFeed from '../post/PostFeed';
 import PostInput from '../post/PostInput';
-
-interface Post {
-  id: number;
-  content: string;
-  user_id: number;
-  created_at: Date;
-  updated_at: Date;
-}
+import { Post } from '../../interfaces/util';
 
 const PostSum = () => {
   const [posts, setPosts] = useState<Post[]>([]);

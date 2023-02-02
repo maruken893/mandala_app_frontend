@@ -15,7 +15,12 @@ export const fetchMandala = async () => {
 
   if (accessToken && client && uid) {
     return mandalaClient.get('mandalas', {
-      headers: { 'access-token': accessToken, client, uid },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'access-token': accessToken,
+        client,
+        uid,
+      },
     });
   }
 };
@@ -29,7 +34,12 @@ export const createMission = async (content: string) => {
       'missions',
       { mission: { content } },
       {
-        headers: { 'access-token': accessToken, client, uid },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'access-token': accessToken,
+          client,
+          uid,
+        },
       }
     );
   }
@@ -43,7 +53,12 @@ export const updateMission = async (content: string, data: Mission) => {
       `missions/${data.id}`,
       { mission: { content } },
       {
-        headers: { 'access-token': accessToken, client, uid },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'access-token': accessToken,
+          client,
+          uid,
+        },
       }
     );
   }
@@ -63,7 +78,12 @@ export const createSubMission = async (
         sub_mission: { content, position },
       },
       {
-        headers: { 'access-token': accessToken, client, uid },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'access-token': accessToken,
+          client,
+          uid,
+        },
       }
     );
   }
@@ -83,7 +103,12 @@ export const updateSubMission = async (
         sub_mission: { content },
       },
       {
-        headers: { 'access-token': accessToken, client, uid },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'access-token': accessToken,
+          client,
+          uid,
+        },
       }
     );
   }
@@ -103,7 +128,12 @@ export const createTodo = async (
         todo: { content, position },
       },
       {
-        headers: { 'access-token': accessToken, client, uid },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'access-token': accessToken,
+          client,
+          uid,
+        },
       }
     );
   }
@@ -123,7 +153,12 @@ export const updateTodo = (
         todo: { content },
       },
       {
-        headers: { 'access-token': accessToken, client, uid },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'access-token': accessToken,
+          client,
+          uid,
+        },
       }
     );
   }
