@@ -49,7 +49,6 @@ const SignUp: React.FC = () => {
         });
       }
     } catch (err: any) {
-      console.log(err);
       if (err.response.status === 422) {
         setMessageState({
           message: '入力情報が正しくありません',

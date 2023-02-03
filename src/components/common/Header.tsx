@@ -25,9 +25,7 @@ const Header = () => {
       } else {
         navigate('/');
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const AuthButtons = () => {

@@ -41,7 +41,6 @@ const NineSquare = ({
     parentData: Mission | SubMission | null,
     position?: number
   ) => {
-    console.log(data);
     setModalState((prev) => ({
       data,
       item: item,

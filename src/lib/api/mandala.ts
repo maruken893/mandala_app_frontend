@@ -16,7 +16,6 @@ export const fetchMandala = async () => {
   if (accessToken && client && uid) {
     return mandalaClient.get('mandalas', {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
         'access-token': accessToken,
         client,
         uid,
@@ -35,7 +34,6 @@ export const createMission = async (content: string) => {
       { mission: { content } },
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
           'access-token': accessToken,
           client,
           uid,
@@ -54,7 +52,6 @@ export const updateMission = async (content: string, data: Mission) => {
       { mission: { content } },
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
           'access-token': accessToken,
           client,
           uid,
@@ -79,7 +76,6 @@ export const createSubMission = async (
       },
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
           'access-token': accessToken,
           client,
           uid,
@@ -104,7 +100,6 @@ export const updateSubMission = async (
       },
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
           'access-token': accessToken,
           client,
           uid,
@@ -129,7 +124,6 @@ export const createTodo = async (
       },
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
           'access-token': accessToken,
           client,
           uid,
@@ -154,7 +148,6 @@ export const updateTodo = (
       },
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
           'access-token': accessToken,
           client,
           uid,

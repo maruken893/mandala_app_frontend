@@ -16,8 +16,6 @@ const AvatarForm = () => {
   const { state: auth } = useAuthContext();
   const navigate = useNavigate();
 
-  console.log(newImage);
-
   const changeInputImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewImage(undefined);
     setNewImagePreview(null);

@@ -11,11 +11,7 @@ const getTokens = () => {
 };
 
 export const fetchPosts = async (user: User, page: number) => {
-  return postClient.get(`users/${user.id}/posts?page=${page}`, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  });
+  return postClient.get(`users/${user.id}/posts?page=${page}`);
 };
 
 export const createPost = async (user: User, content: string) => {

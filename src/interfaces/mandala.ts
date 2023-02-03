@@ -33,6 +33,7 @@ export const isMission = (arg: any): arg is Mission => {
     arg !== undefined &&
     typeof arg === 'object' &&
     typeof arg.id === 'number' &&
+    typeof arg.userId === 'number' &&
     typeof arg.content === 'string'
   );
 };
@@ -44,7 +45,6 @@ export const isSubMission = (arg: any): arg is SubMission => {
     typeof arg === 'object' &&
     typeof arg.content === 'string' &&
     typeof arg.id === 'number' &&
-    typeof arg.userId === 'number' &&
     [0, 1, 2, 3, 4, 5, 6, 7, 8].includes(arg.position) &&
     typeof arg.missionId === 'number'
   );
@@ -56,7 +56,6 @@ export const isTodo = (arg: any): arg is Todo => {
     arg !== undefined &&
     typeof arg.id === 'number' &&
     typeof arg.content === 'string' &&
-    typeof arg.userId === 'number' &&
     [0, 1, 2, 3, 4, 5, 6, 7, 8].includes(arg.position) &&
     typeof arg.subMissionId === 'number'
   );

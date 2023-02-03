@@ -67,17 +67,21 @@ const Modal: React.FC<{
         isSubMission(modalState.parentData)
       ) {
         if (typeof modalState.position === 'number') {
+          console.log('成功');
           await createTodo(input, modalState.position, modalState.parentData);
+        } else {
+          console.log('失敗');
         }
+      } else {
+        console.log(modalState.parentData);
+        console.log(isSubMission(modalState.parentData));
       }
       // マンダラチャートの更新
       const res = await fetchMandala();
       setMandalaState([...res?.data.data]);
       setModalState((prev) => ({ ...prev, isOpen: false }));
       setInput('');
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleUpdateMissionButton = async () => {
@@ -103,7 +107,7 @@ const Modal: React.FC<{
       setModalState((prev) => ({ ...prev, isOpen: false }));
       setInput('');
     } catch (err) {
-      console.log(err);
+      err;
     }
   };
 

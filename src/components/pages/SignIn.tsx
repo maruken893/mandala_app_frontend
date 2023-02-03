@@ -70,7 +70,6 @@ const SignIn: React.FC = () => {
       const id = res.data.data.id;
 
       if (res.status === 200) {
-        console.log(res);
         if (typeof access_token === 'string')
           Cookies.set('_access_token', access_token);
         if (typeof client === 'string') Cookies.set('_client', client);
@@ -80,7 +79,7 @@ const SignIn: React.FC = () => {
         authDispatch({ type: 'signin' });
 
         const user = await getCurrentUser();
-        console.log(res?.data);
+
         authDispatch({
           type: 'setUser',
           payload: {

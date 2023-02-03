@@ -16,9 +16,6 @@ const ChangePassword = () => {
   const client = searchParams.get('client');
   const uid = searchParams.get('uid');
 
-  console.log(client);
-  console.log(uid);
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);

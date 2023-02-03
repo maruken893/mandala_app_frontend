@@ -23,7 +23,6 @@ const getTokens = () => {
 };
 
 export const updateAvatar = (avatar: File) => {
-  console.log(avatar);
   const { accessToken, client, uid } = getTokens();
 
   if (accessToken && client && uid) {
@@ -34,7 +33,6 @@ export const updateAvatar = (avatar: File) => {
       },
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
           'access-token': accessToken,
           client,
           uid,
@@ -46,18 +44,13 @@ export const updateAvatar = (avatar: File) => {
 };
 
 export const forgetPassword = (params: PasswordForgetParams) => {
-  console.log(params);
-  return userClient.post('auth/password', params, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  });
+  params;
+  return userClient.post('auth/password', params);
 };
 
 export const changePassword = (params: ChangePasswordParams) => {
   return userClient.put('auth/password', params, {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
       'access-token': params.accessToken,
       client: params.client,
       uid: params.uid,
